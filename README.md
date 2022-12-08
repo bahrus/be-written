@@ -6,8 +6,8 @@ Stream a url to a target element.
 <details be-written='{
     "from": "https://html.spec.whatwg.org/",
     "to": "div",
-    "urlResolver": {
-        //use import map syntax?
+    "beBased": {
+        //no asynch within this processing, so don't use dtr
     }
 }'>
     <summary>HTML Specs</summary>
