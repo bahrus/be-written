@@ -11,3 +11,5 @@ Stream a url to a target element.
     <div></div>
 </details>
 ```
+
+If "to" is ".",  writes directly to its light children.
