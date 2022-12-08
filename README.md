@@ -1,4 +1,4 @@
-# be-written
+# be-written [TODO]
 
 Stream a url to a target element.
 
@@ -15,7 +15,8 @@ Stream a url to a target element.
         }]
         //no asynch within this processing, so don't use dtr
        
-    }
+    },
+    "shadowRoot": "open"
 }'>
     <summary>HTML Specs</summary>
     <div></div>
