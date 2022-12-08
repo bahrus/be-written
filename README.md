@@ -16,6 +16,9 @@ Stream a url to a target element.
         //no asynch within this processing, so don't use dtr
        
     },
+    "transform":{
+
+    },
     "shadowRoot": "open"
 }'>
     <summary>HTML Specs</summary>
