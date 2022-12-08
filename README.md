@@ -7,7 +7,14 @@ Stream a url to a target element.
     "from": "https://html.spec.whatwg.org/",
     "to": "div",
     "beBased": {
+        "rules": [{
+            "match": "a",
+            "attr": "href",
+            "ifNot": "^(http|https)",
+            "baseHref": "https://www.supremecourt.gov/about/"
+        }]
         //no asynch within this processing, so don't use dtr
+       
     }
 }'>
     <summary>HTML Specs</summary>
