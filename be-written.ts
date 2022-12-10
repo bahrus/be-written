@@ -1,6 +1,7 @@
 import {register} from 'be-hive/register.js';
 import {define, BeDecoratedProps, DEMethods} from 'be-decorated/DE.js';
 import {Actions, PP, PPE, VirtualProps, Proxy, ProxyProps} from './types';
+import {EndUserProps as BeBasedEndUserProps} from 'be-based/types';
 
 export class BeWritten extends EventTarget implements Actions{
     async write(pp: PP){
@@ -14,6 +15,9 @@ export class BeWritten extends EventTarget implements Actions{
         await customElements.whenDefined('be-based');
         const {attach} = await import('be-decorated/upgrade.js');
         const instance = document.createElement('be-based') as any as DEMethods;
+        (<any>self).beDecorated.based = {
+            base: from
+        } as BeBasedEndUserProps;
         attach(self, 'based', instance.attach.bind(instance));
         const so = new StreamOrator(target, {
             shadowRoot 

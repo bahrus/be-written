@@ -9,8 +9,8 @@
     "package-check": "package-check"
   },
   "dependencies": {
-    "be-based": "0.0.22",
-    "be-decorated": "0.0.205",
+    "be-based": "0.0.24",
+    "be-decorated": "0.0.206",
     "be-hive": "0.0.78",
     "stream-orator": "0.0.11"
   },

@@ -12,6 +12,9 @@ export class BeWritten extends EventTarget {
         await customElements.whenDefined('be-based');
         const { attach } = await import('be-decorated/upgrade.js');
         const instance = document.createElement('be-based');
+        self.beDecorated.based = {
+            base: from
+        };
         attach(self, 'based', instance.attach.bind(instance));
         const so = new StreamOrator(target, {
             shadowRoot
