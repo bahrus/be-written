@@ -23,11 +23,11 @@ The syntax above is shorthand for:
 }'>
 ```
 
-If "to" is ".",  writes directly to its light children.
+If "to" is ".", be-written  writes directly to its (shadow) children.
 
 reqInit is the second optional parameter of fetch.
 
-## With ShadowDOM
+## With Shadow DOM
 
 ```html
 <details be-written='{
