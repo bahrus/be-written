@@ -1,8 +1,25 @@
 {
   "name": "be-written",
   "version": "0.0.2",
-  "description": "",
-  "main": "index.js",
+  "description": "Stream a url to a target element, declaratively.",
+  "main": "be-written.js",
+  "module": "be-written.js",
+  "keywords": [
+    "web components",
+    "web component",
+    "custom elements",
+    "custom element",
+    "stream",
+    "declarative"
+  ],
+  "exports": {
+    ".": "./be-written.js",
+    "./be-written.js": "./be-written.js"
+  },
+  "files": [
+    "*.*"
+  ],
+  "types": "types.d.ts",
   "scripts": {
     "test": "playwright test",
     "serve": "node node_modules/may-it-serve/serve.js",
