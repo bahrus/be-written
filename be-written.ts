@@ -33,6 +33,9 @@ export class BeWritten extends EventTarget implements Actions{
             rootTag: wrapper 
         });
         await so.fetch(from!, reqInit!);
+        if(beBased){
+            (<any>target).beDecorated.based.controller.disconnect();
+        }
         return {
             resolved: true,
         } as PPP;

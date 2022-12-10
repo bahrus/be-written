@@ -29,6 +29,9 @@ export class BeWritten extends EventTarget {
             rootTag: wrapper
         });
         await so.fetch(from, reqInit);
+        if (beBased) {
+            target.beDecorated.based.controller.disconnect();
+        }
         return {
             resolved: true,
         };
