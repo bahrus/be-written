@@ -46,16 +46,18 @@ define({
         propDefaults: {
             ifWantsToBe,
             upgrade,
-            virtualProps: ['from', 'to', 'shadowRoot', 'wrapper', 'beBased'],
+            virtualProps: ['from', 'to', 'shadowRoot', 'wrapper', 'beBased', 'defer'],
             primaryProp: 'from',
             proxyPropDefaults: {
                 to: '.',
                 beBased: true,
+                beOosoom: '!defer'
             }
         },
         actions: {
             write: {
-                ifAllOf: ['from', 'to']
+                ifAllOf: ['from', 'to'],
+                ifNoneOf: ['defer']
             }
         }
     },

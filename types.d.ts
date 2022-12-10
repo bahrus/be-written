@@ -7,6 +7,8 @@ export interface EndUserProps{
     reqInit?: RequestInit,
     wrapper?: string,
     beBased?: boolean,
+    beOosoom?: string,
+    defer?: boolean,
 }
 
 export interface VirtualProps extends EndUserProps, MinimalProxy{

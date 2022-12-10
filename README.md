@@ -46,6 +46,19 @@ beBased indicates to enable rewriting url's coming from third parties.  Having i
 
 When the streaming has finished, the element adorned by the be-written decorator emits event: "be-decorated.be-written.resolved".
 
+## Lazy Loading
+
+*be-written* already has some lazy-loading built in -- the decorator only becomes activated when the element it adorns has been rendered (so if it is inside a details element, it will not stream until the details element is expanded).
+
+For true lazy loading, set "defer" to true, and adorn the element with [be-oosoom](https://github.com/bahrus/be-oosoom):
+
+```html
+<div be-oosoom be-written='{
+    "from": "https://html.spec.whatwg.org/",
+    "defer": true
+}'></div>
+```
+
 ## Viewing Locally
 
 1.  Install git.
@@ -60,7 +73,6 @@ When the streaming has finished, the element adorned by the be-written decorator
 
 ```JavaScript
 import 'be-written/be-written.js';
-
 ```
 
 ## CDN
