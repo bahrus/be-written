@@ -1,6 +1,7 @@
 import { register } from 'be-hive/register.js';
 import { define } from 'be-decorated/DE.js';
 export class BeWritten extends EventTarget {
+    async getSet(pp, so, target) { }
     async write(pp) {
         const { self, shadowRoot, from, to, reqInit, wrapper, beBased } = pp;
         let target = self;
@@ -28,6 +29,7 @@ export class BeWritten extends EventTarget {
             shadowRoot,
             rootTag: wrapper
         });
+        this.getSet(pp, so, target);
         await so.fetch(from, reqInit);
         if (beBased) {
             target.beDecorated.based.controller.disconnect();
