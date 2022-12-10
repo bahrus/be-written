@@ -6,6 +6,7 @@ export interface EndUserProps{
     shadowRoot?: 'open' | 'closed'
     reqInit?: RequestInit,
     wrapper?: string,
+    beBased?: boolean,
 }
 
 export interface VirtualProps extends EndUserProps, MinimalProxy{

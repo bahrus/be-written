@@ -6,7 +6,7 @@ import {EndUserProps as BeBasedEndUserProps} from 'be-based/types';
 export class BeWritten extends EventTarget implements Actions{
     async write(pp: PP){
         
-        const {self, shadowRoot, from, to, reqInit, wrapper} = pp;
+        const {self, shadowRoot, from, to, reqInit, wrapper, beBased} = pp;
         let target = self;
         if(to !== '.'){
             target = self.querySelector(to!)!;
@@ -14,16 +14,19 @@ export class BeWritten extends EventTarget implements Actions{
         if(shadowRoot !== undefined && target.shadowRoot === null){
             target.attachShadow({mode: shadowRoot});
         }
-        import('be-based/be-based.js');
-        await customElements.whenDefined('be-based');
-        const {attach} = await import('be-decorated/upgrade.js');
-        const instance = document.createElement('be-based') as any as DEMethods;
-        const aTarget = target as any;
-        if(aTarget.beDecorated === undefined) aTarget.beDecorated = {};
-        aTarget.beDecorated.based = {
-            base: from
-        } as BeBasedEndUserProps;
-        attach(target, 'based', instance.attach.bind(instance));
+        if(beBased){
+            import('be-based/be-based.js');
+            await customElements.whenDefined('be-based');
+            const {attach} = await import('be-decorated/upgrade.js');
+            const instance = document.createElement('be-based') as any as DEMethods;
+            const aTarget = target as any;
+            if(aTarget.beDecorated === undefined) aTarget.beDecorated = {};
+            aTarget.beDecorated.based = {
+                base: from
+            } as BeBasedEndUserProps;
+            attach(target, 'based', instance.attach.bind(instance));
+        }
+        
         const {StreamOrator, beginStream} = await import('stream-orator/StreamOrator.js');
         const so = new StreamOrator(target, {
             shadowRoot,
@@ -46,10 +49,11 @@ define<VirtualProps & BeDecoratedProps<VirtualProps, Actions>, Actions>({
         propDefaults: {
             ifWantsToBe,
             upgrade,
-            virtualProps: ['from', 'to', 'shadowRoot', 'wrapper'],
+            virtualProps: ['from', 'to', 'shadowRoot', 'wrapper', 'beBased'],
             primaryProp: 'from',
             proxyPropDefaults: {
-                to: '.'
+                to: '.',
+                beBased: true,
             }
         },
         actions: {
