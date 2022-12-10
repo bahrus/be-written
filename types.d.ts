@@ -26,5 +26,5 @@ export type PPP = Partial<ProxyProps>;
 export type PPE = [PPP, EventConfigs<Proxy, Actions>];
 
 export interface Actions{
-    write(pp: PP): PPP;
+    write(pp: PP): Promise<PPP>;
 }
