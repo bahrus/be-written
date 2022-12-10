@@ -1,6 +1,6 @@
 # be-written
 
-<a href="https://nodei.co/npm/be-written/"><img src="https://nodei.co/npm/be-written.png"></a>
+[![NPM version](https://badge.fury.io/js/be-written.png)](http://badge.fury.io/js/be-written)
 [![How big is this package in your project?](https://img.shields.io/bundlephobia/minzip/be-written?style=for-the-badge)](https://bundlephobia.com/result?p=be-written)
 <img src="http://img.badgesize.io/https://cdn.jsdelivr.net/npm/be-written?compression=gzip">
 
