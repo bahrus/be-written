@@ -50,6 +50,8 @@ When the streaming has finished, the element adorned by the be-written decorator
 
 *be-written* already has some lazy-loading built in -- the decorator only becomes activated when the element it adorns has been rendered (so if it is inside a details element, it will not stream until the details element is expanded).
 
+But it does start streaming even if the element is well outside the viewable area.
+
 For true lazy loading, set "defer" to true, and adorn the element with [be-oosoom](https://github.com/bahrus/be-oosoom):
 
 ```html
