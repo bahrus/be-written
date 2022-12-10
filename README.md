@@ -1,6 +1,7 @@
 # be-written
 
 [![NPM version](https://badge.fury.io/js/be-written.png)](http://badge.fury.io/js/be-written)
+[![Playwright Tests](https://github.com/bahrus/be-written/actions/workflows/CI.yml/badge.svg?branch=baseline)](https://github.com/bahrus/be-written/actions/workflows/CI.yml)
 [![How big is this package in your project?](https://img.shields.io/bundlephobia/minzip/be-written?style=for-the-badge)](https://bundlephobia.com/result?p=be-written)
 <img src="http://img.badgesize.io/https://cdn.jsdelivr.net/npm/be-written?compression=gzip">
 
