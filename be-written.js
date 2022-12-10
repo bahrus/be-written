@@ -29,6 +29,9 @@ export class BeWritten extends EventTarget {
             rootTag: wrapper
         });
         await so.fetch(from, reqInit);
+        return {
+            resolved: true,
+        };
     }
 }
 const tagName = 'be-written';

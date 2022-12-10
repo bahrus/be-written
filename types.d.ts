@@ -23,8 +23,8 @@ export type PP = ProxyProps;
 
 export type PPP = Partial<ProxyProps>;
 
-export type PPE = [Partial<PP>, EventConfigs<Proxy, Actions>];
+export type PPE = [PPP, EventConfigs<Proxy, Actions>];
 
 export interface Actions{
-    write(pp: PP): void;
+    write(pp: PP): PPP;
 }

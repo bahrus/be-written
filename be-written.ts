@@ -1,6 +1,6 @@
 import {register} from 'be-hive/register.js';
 import {define, BeDecoratedProps, DEMethods} from 'be-decorated/DE.js';
-import {Actions, PP, PPE, VirtualProps, Proxy, ProxyProps} from './types';
+import {Actions, PP, PPE, VirtualProps, Proxy, ProxyProps, PPP} from './types';
 import {EndUserProps as BeBasedEndUserProps} from 'be-based/types';
 
 export class BeWritten extends EventTarget implements Actions{
@@ -33,6 +33,9 @@ export class BeWritten extends EventTarget implements Actions{
             rootTag: wrapper 
         });
         await so.fetch(from!, reqInit!);
+        return {
+            resolved: true,
+        } as PPP;
 
     }
 }
