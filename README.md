@@ -3,22 +3,15 @@
 Stream a url to a target element.
 
 ```html
+<div be-written=https://html.spec.whatwg.org></div>
+```
+
+... streams the contents of https://html.spec.whatwg.org into the div.
+
+```html
 <details be-written='{
     "from": "https://html.spec.whatwg.org/",
     "to": "div",
-    "beBased": {
-        "rules": [{
-            "match": "a",
-            "attr": "href",
-            "ifNot": "^(http|https)",
-            "baseHref": "https://www.supremecourt.gov/about/"
-        }]
-        //no asynch within this processing, so don't use dtr
-       
-    },
-    "transform":{
-        //async dtr
-    },
     "shadowRoot": "open"
 }'>
     <summary>HTML Specs</summary>
