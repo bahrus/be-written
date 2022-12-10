@@ -26,6 +26,8 @@ If "to" is ".",  writes directly to its light children.
 
 reqInit is the second optional parameter of fetch.
 
+## With ShadowDOM
+
 ```html
 <details be-written='{
     "from": "https://html.spec.whatwg.org/",
@@ -37,7 +39,27 @@ reqInit is the second optional parameter of fetch.
 </details>
 ```
 
+## Viewing Locally
 
+1.  Install git.
+2.  Fork/clone this repo.
+3.  Install node.
+4.  Open command window to folder where you cloned this repo.
+5.  > npm install
+6.  > npm run serve
+7.  Open http://localhost:3030/demo/dev in a modern browser.
 
-https://stackoverflow.com/questions/59999736/how-to-block-image-from-loading-in-javascript
+## Importing in ES Modules:
+
+```JavaScript
+import 'be-written/be-written.js';
+
+```
+
+## CDN
+
+```JavaScript
+import 'https://esm.run/stream-orator/StreamOrator.js';
+
+```
 
