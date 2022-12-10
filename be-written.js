@@ -28,7 +28,7 @@ define({
         propDefaults: {
             ifWantsToBe,
             upgrade,
-            virtualProps: [],
+            virtualProps: ['from', 'to', 'shadowRoot'],
             primaryProp: 'from',
             proxyPropDefaults: {
                 to: '.'

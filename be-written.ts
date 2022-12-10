@@ -35,7 +35,7 @@ define<VirtualProps & BeDecoratedProps<VirtualProps, Actions>, Actions>({
         propDefaults: {
             ifWantsToBe,
             upgrade,
-            virtualProps: [],
+            virtualProps: ['from', 'to', 'shadowRoot'],
             primaryProp: 'from',
             proxyPropDefaults: {
                 to: '.'
