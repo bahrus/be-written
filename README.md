@@ -59,7 +59,7 @@ import 'be-written/be-written.js';
 ## CDN
 
 ```JavaScript
-import 'https://esm.run/be-written/be-written.js';
+import 'https://esm.run/be-written';
 
 ```
 
