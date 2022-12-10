@@ -27,7 +27,7 @@ If "to" is ".", be-written  writes directly to its (shadow) children.
 
 reqInit is the second optional parameter of fetch.
 
-beBased indicates to enable rewriting url's coming from third parties.  Having it set to true (the default), does impose something of a performance cost, so setting it to false if that works okay.
+beBased indicates to enable rewriting url's coming from third parties.  Having it set to true (the default), does impose something of a performance cost, so set it to false if that works okay.
 
 ## With Shadow DOM
 
