@@ -1,6 +1,7 @@
 import { register } from 'be-hive/register.js';
 import { define } from 'be-decorated/DE.js';
 export class BeWritten extends EventTarget {
+    //provide hooks for extending decorators like BeRewritten
     async getSet(pp, so, target) { }
     async write(pp) {
         const { self, shadowRoot, from, to, reqInit, wrapper, beBased } = pp;

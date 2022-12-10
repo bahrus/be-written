@@ -6,6 +6,7 @@ import { StreamOrator } from 'stream-orator/StreamOrator.js';
 
 export class BeWritten extends EventTarget implements Actions{
 
+    //provide hooks for extending decorators like BeRewritten
     async getSet(pp: PP, so: StreamOrator, target: Element){}
     async write(pp: PP){
         
