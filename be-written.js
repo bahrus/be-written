@@ -3,7 +3,7 @@ import { define } from 'be-decorated/DE.js';
 export class BeWritten extends EventTarget {
     async write(pp) {
         const { StreamOrator } = await import('stream-orator/StreamOrator.js');
-        const { self, shadowRoot, from, to } = pp;
+        const { self, shadowRoot, from, to, reqInit } = pp;
         let target = self;
         if (to !== '.') {
             target = self.querySelector(to);
@@ -16,7 +16,7 @@ export class BeWritten extends EventTarget {
         const so = new StreamOrator(target, {
             shadowRoot
         });
-        await so.fetch(from, {});
+        await so.fetch(from, reqInit);
     }
 }
 const tagName = 'be-written';

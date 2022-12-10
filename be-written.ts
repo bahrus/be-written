@@ -5,7 +5,7 @@ import {Actions, PP, PPE, VirtualProps, Proxy, ProxyProps} from './types';
 export class BeWritten extends EventTarget implements Actions{
     async write(pp: PP){
         const {StreamOrator} = await import('stream-orator/StreamOrator.js');
-        const {self, shadowRoot, from, to} = pp;
+        const {self, shadowRoot, from, to, reqInit} = pp;
         let target = self;
         if(to !== '.'){
             target = self.querySelector(to!)!;
@@ -18,7 +18,7 @@ export class BeWritten extends EventTarget implements Actions{
         const so = new StreamOrator(target, {
             shadowRoot 
         });
-        await so.fetch(from!, {});
+        await so.fetch(from!, reqInit!);
 
     }
 }
