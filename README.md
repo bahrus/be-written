@@ -40,6 +40,10 @@ reqInit is the second optional parameter of fetch.
 </details>
 ```
 
+## Notification when finished
+
+When the streaming has finished, the element adorned by the be-written decorator emits event: "be-decorated.be-written.resolved".
+
 ## Viewing Locally
 
 1.  Install git.
