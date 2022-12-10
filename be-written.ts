@@ -14,16 +14,16 @@ export class BeWritten extends EventTarget implements Actions{
         if(shadowRoot !== undefined && target.shadowRoot === null){
             target.attachShadow({mode: shadowRoot});
         }
-        if(beBased){
+        if(beBased !== undefined){
             import('be-based/be-based.js');
             await customElements.whenDefined('be-based');
             const {attach} = await import('be-decorated/upgrade.js');
             const instance = document.createElement('be-based') as any as DEMethods;
             const aTarget = target as any;
+            const beBasedEndUserProps = typeof beBased === 'boolean' ? {} : beBased;
+            beBasedEndUserProps.base = from; 
             if(aTarget.beDecorated === undefined) aTarget.beDecorated = {};
-            aTarget.beDecorated.based = {
-                base: from
-            } as BeBasedEndUserProps;
+            aTarget.beDecorated.based = beBasedEndUserProps;
             attach(target, 'based', instance.attach.bind(instance));
         }
         

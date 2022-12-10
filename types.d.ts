@@ -1,4 +1,5 @@
 import {BeDecoratedProps, MinimalProxy, EventConfigs} from 'be-decorated/types';
+import {EndUserProps as BeBasedEndUserProps} from 'be-based/types';
 
 export interface EndUserProps{
     from?: string,
@@ -6,7 +7,7 @@ export interface EndUserProps{
     shadowRoot?: 'open' | 'closed'
     reqInit?: RequestInit,
     wrapper?: string,
-    beBased?: boolean,
+    beBased?: boolean | BeBasedEndUserProps,
     beOosoom?: string,
     defer?: boolean,
 }
