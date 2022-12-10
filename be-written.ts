@@ -6,7 +6,7 @@ import {EndUserProps as BeBasedEndUserProps} from 'be-based/types';
 export class BeWritten extends EventTarget implements Actions{
     async write(pp: PP){
         
-        const {self, shadowRoot, from, to, reqInit} = pp;
+        const {self, shadowRoot, from, to, reqInit, wrapper} = pp;
         let target = self;
         if(to !== '.'){
             target = self.querySelector(to!)!;
@@ -26,7 +26,8 @@ export class BeWritten extends EventTarget implements Actions{
         attach(target, 'based', instance.attach.bind(instance));
         const {StreamOrator, beginStream} = await import('stream-orator/StreamOrator.js');
         const so = new StreamOrator(target, {
-            shadowRoot 
+            shadowRoot,
+            rootTag: wrapper 
         });
         await so.fetch(from!, reqInit!);
 
@@ -45,7 +46,7 @@ define<VirtualProps & BeDecoratedProps<VirtualProps, Actions>, Actions>({
         propDefaults: {
             ifWantsToBe,
             upgrade,
-            virtualProps: ['from', 'to', 'shadowRoot'],
+            virtualProps: ['from', 'to', 'shadowRoot', 'wrapper'],
             primaryProp: 'from',
             proxyPropDefaults: {
                 to: '.'
