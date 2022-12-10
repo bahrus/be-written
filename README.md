@@ -18,7 +18,7 @@ The syntax above is shorthand for:
 <div be-written='{
     "from": "https://html.spec.whatwg.org/",
     "to": ".",
-    "reqInit": {},
+    "reqInit": {}
 }'>
 ```
 
