@@ -4,7 +4,7 @@ export class BeWritten extends EventTarget {
     //provide hooks for extending decorators like BeRewritten
     async getSet(pp, so, target) { }
     async write(pp) {
-        const { self, shadowRoot, from, to, reqInit, wrapper, beBased } = pp;
+        const { self, shadowRoot, from, to, reqInit, wrapper, beBased, inProgressCss } = pp;
         let target = self;
         if (to !== '.') {
             target = self.querySelector(to);
@@ -31,9 +31,13 @@ export class BeWritten extends EventTarget {
             rootTag: wrapper
         });
         this.getSet(pp, so, target);
-        self.classList.add('be-written-in-progress');
+        if (inProgressCss) {
+            self.classList.add('be-written-in-progress');
+        }
         await so.fetch(from, reqInit);
-        self.classList.remove('be-written-in-progress');
+        if (inProgressCss) {
+            self.classList.remove('be-written-in-progress');
+        }
         if (beBased) {
             target.beDecorated.based.controller.disconnect();
         }
@@ -45,7 +49,10 @@ export class BeWritten extends EventTarget {
 const tagName = 'be-written';
 const ifWantsToBe = 'written';
 const upgrade = '*';
-export const virtualProps = ['from', 'to', 'shadowRoot', 'wrapper', 'beBased', 'defer'];
+export const virtualProps = [
+    'from', 'to', 'shadowRoot', 'reqInit', 'wrapper', 'beBased', 'defer', 'beOosoom',
+    'inProgressCss'
+];
 export const proxyPropDefaults = {
     to: '.',
     beBased: true,

@@ -10,6 +10,7 @@ export interface EndUserProps{
     beBased?: boolean | BeBasedEndUserProps,
     beOosoom?: string,
     defer?: boolean,
+    inProgressCss?: string,
 }
 
 export interface VirtualProps extends EndUserProps, MinimalProxy{
