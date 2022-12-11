@@ -51,7 +51,7 @@ beBased indicates to enable rewriting url's coming from third parties.  Having i
 
 ## Notification when finished
 
-When the streaming has finished, the element adorned by the be-written decorator emits event: "be-decorated.be-written.resolved".
+When the streaming has finished, the element adorned by the be-written decorator emits event: "be-decorated.written.resolved".
 
 ## Lazy Loading
 
