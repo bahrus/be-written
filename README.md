@@ -30,6 +30,12 @@ reqInit is the second optional parameter of fetch.
 
 beBased indicates to enable rewriting url's coming from third parties.  Having it set to true (the default), does impose something of a performance cost, so set it to false if that works okay.
 
+> **Note**:   By streaming content into the live DOM Document, it is quite possible the browser will find itself performing multiple page reflows.  Be sure to use the Chrome Dev tools (for example) | rendering | web vitals to watch for any performance issues.  Various CSS approaches can be employed to minimize this:
+
+1.  [content-vsibility](https://developer.mozilla.org/en-US/docs/Web/CSS/content-visibility)
+2.  [contain](https://developer.mozilla.org/en-US/docs/Web/CSS/contain)
+3.  [overflow](https://developer.mozilla.org/en-US/docs/Web/CSS/overflow) - worst case?
+
 ## With Shadow DOM
 
 ```html
