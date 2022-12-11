@@ -60,6 +60,10 @@ By default, *be-written* adds class "be-written-in-progress" to the element it a
 
 The name of the class be overridden ("inProgressCss": "whatever-you-want").
 
+## Inserts [TODO]
+
+Because it may be critical to provide custom styling within the shadow DOM (like content-visibility / contains mentioned above), *be-written* provides the ability to slip in a cloned template into the Shadow DOM before the streaming starts.  Likewise, it may be useful to insert some content after (admittedly harder to find scenarios, but supported just in case).
+
 ## Notification when finished
 
 When the streaming has finished, the element adorned by the be-written decorator emits event: "be-decorated.written.resolved".
