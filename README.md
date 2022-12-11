@@ -49,9 +49,11 @@ beBased indicates to enable rewriting url's coming from third parties.  Having i
 </details>
 ```
 
-## Styling [TODO]
+## Styling
 
 By default, *be-written* adds class "be-written-in-progress" to the element it adorns while the streaming is in progress.
+
+The name of the class be overridden ("inProgressCss": "whatever-you-want").
 
 ## Notification when finished
 
