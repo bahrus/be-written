@@ -43,26 +43,29 @@ export class BeWritten extends EventTarget {
 const tagName = 'be-written';
 const ifWantsToBe = 'written';
 const upgrade = '*';
+export const virtualProps = ['from', 'to', 'shadowRoot', 'wrapper', 'beBased', 'defer'];
+export const proxyPropDefaults = {
+    to: '.',
+    beBased: true,
+    beOosoom: '!defer'
+};
+export const actions = {
+    write: {
+        ifAllOf: ['from', 'to'],
+        ifNoneOf: ['defer']
+    }
+};
 define({
     config: {
         tagName,
         propDefaults: {
             ifWantsToBe,
             upgrade,
-            virtualProps: ['from', 'to', 'shadowRoot', 'wrapper', 'beBased', 'defer'],
+            virtualProps,
             primaryProp: 'from',
-            proxyPropDefaults: {
-                to: '.',
-                beBased: true,
-                beOosoom: '!defer'
-            }
+            proxyPropDefaults
         },
-        actions: {
-            write: {
-                ifAllOf: ['from', 'to'],
-                ifNoneOf: ['defer']
-            }
-        }
+        actions,
     },
     complexPropDefaults: {
         controller: BeWritten,

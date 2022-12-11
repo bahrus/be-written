@@ -1,8 +1,10 @@
 import {register} from 'be-hive/register.js';
 import {define, BeDecoratedProps, DEMethods} from 'be-decorated/DE.js';
+import {ActionExt} from 'be-decorated/types';
 import {Actions, PP, PPE, VirtualProps, Proxy, ProxyProps, PPP} from './types';
 import {EndUserProps as BeBasedEndUserProps} from 'be-based/types';
 import { StreamOrator } from 'stream-orator/StreamOrator.js';
+import {Action} from 'trans-render/lib/types';
 
 export class BeWritten extends EventTarget implements Actions{
 
@@ -54,26 +56,32 @@ const ifWantsToBe = 'written';
 
 const upgrade = '*';
 
+export const virtualProps: (keyof VirtualProps)[] = ['from', 'to', 'shadowRoot', 'wrapper', 'beBased', 'defer'];
+
+export const proxyPropDefaults: Partial<VirtualProps> = {
+    to: '.',
+    beBased: true,
+    beOosoom: '!defer'
+};
+
+export const actions:  Partial<{[key in keyof Actions]: ActionExt<VirtualProps & BeDecoratedProps<VirtualProps, Actions>, Actions>}> = {
+    write: {
+        ifAllOf: ['from', 'to'],
+        ifNoneOf: ['defer']
+    }
+}
+
 define<VirtualProps & BeDecoratedProps<VirtualProps, Actions>, Actions>({
     config: {
         tagName,
         propDefaults: {
             ifWantsToBe,
             upgrade,
-            virtualProps: ['from', 'to', 'shadowRoot', 'wrapper', 'beBased', 'defer'],
+            virtualProps,
             primaryProp: 'from',
-            proxyPropDefaults: {
-                to: '.',
-                beBased: true,
-                beOosoom: '!defer'
-            }
+            proxyPropDefaults 
         },
-        actions: {
-            write: {
-                ifAllOf: ['from', 'to'],
-                ifNoneOf: ['defer']
-            }
-        }
+        actions,
     },
     complexPropDefaults: {
         controller: BeWritten,
