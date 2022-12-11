@@ -39,7 +39,9 @@ export class BeWritten extends EventTarget implements Actions{
             rootTag: wrapper 
         });
         this.getSet(pp, so, target);
+        self.classList.add('be-written-in-progress');
         await so.fetch(from!, reqInit!);
+        self.classList.remove('be-written-in-progress');
         if(beBased){
             (<any>target).beDecorated.based.controller.disconnect();
         }

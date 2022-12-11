@@ -49,6 +49,10 @@ beBased indicates to enable rewriting url's coming from third parties.  Having i
 </details>
 ```
 
+## Styling [TODO]
+
+By default, *be-written* adds class "be-written-in-progress" to the element it adorns while the streaming is in progress.
+
 ## Notification when finished
 
 When the streaming has finished, the element adorned by the be-written decorator emits event: "be-decorated.written.resolved".
