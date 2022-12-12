@@ -60,9 +60,9 @@ By default, *be-written* adds class "be-written-in-progress" to the element it a
 
 The name of the class be overridden ("inProgressCss": "whatever-you-want").
 
-## Inserts [TODO]
+## Inserts [WIP]
 
-Because it may be critical to provide custom styling within the shadow DOM (like content-visibility / contains mentioned above), *be-written* provides the ability to slip in a cloned template into the Shadow DOM before the streaming starts.  Likewise, it may be useful to insert some content after (admittedly harder to find scenarios, but supported just in case).
+Because it may be critical to provide custom styling within the shadow DOM (like content-visibility / contains mentioned above), *be-written* provides the ability to slip in a cloned template into the Shadow DOM before the streaming starts.  Likewise, it may be useful to insert some content after - for example providing a link / acknowledgmeent from where the content came from.
 
 ## Notification when finished
 

@@ -1,5 +1,6 @@
 import {BeDecoratedProps, MinimalProxy, EventConfigs} from 'be-decorated/types';
 import {EndUserProps as BeBasedEndUserProps} from 'be-based/types';
+import {Inserts} from 'stream-orator/types';
 
 export interface EndUserProps{
     from?: string,
@@ -11,6 +12,7 @@ export interface EndUserProps{
     beOosoom?: string,
     defer?: boolean,
     inProgressCss?: string,
+    inserts?:Inserts,
 }
 
 export interface VirtualProps extends EndUserProps, MinimalProxy{
