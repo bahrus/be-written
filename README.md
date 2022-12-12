@@ -64,6 +64,18 @@ The name of the class can be explicitly set ("inProgressCss": "whatever-you-want
 
 Because it may be critical to provide custom styling within the shadow DOM (like content-visibility / contains mentioned above), *be-written* provides the ability to slip in a cloned template into the Shadow DOM before the streaming starts.  Likewise, it may be useful to insert some content after - for example providing a link / acknowledgment from where the content came from.
 
+Here's how to insert content:
+
+```html
+<div be-written='{
+    "from": "blah.html",
+    "inserts": {
+        "before": "<div>before</div>",
+        "after": "<div>after</div>"
+    }
+}'></div>
+```
+
 ## Notification when finished
 
 When the streaming has finished, the element adorned by the be-written decorator emits event: "be-decorated.written.resolved".
