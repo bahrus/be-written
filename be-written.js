@@ -15,7 +15,7 @@ export class BeWritten extends EventTarget {
         if (beBased !== undefined) {
             import('be-based/be-based.js');
             await customElements.whenDefined('be-based');
-            const { attach } = await import('be-decorated/upgrade.js');
+            //const {attach} = await import('be-decorated/upgrade.js');
             const instance = document.createElement('be-based');
             const aTarget = target;
             const beBasedEndUserProps = typeof beBased === 'boolean' ? {} : beBased;
@@ -23,7 +23,7 @@ export class BeWritten extends EventTarget {
             if (aTarget.beDecorated === undefined)
                 aTarget.beDecorated = {};
             aTarget.beDecorated.based = beBasedEndUserProps;
-            attach(target, 'based', instance.attach.bind(instance));
+            instance.attach(target);
         }
         const { StreamOrator, beginStream } = await import('stream-orator/StreamOrator.js');
         const so = new StreamOrator(target, {

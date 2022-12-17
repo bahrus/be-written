@@ -1,10 +1,10 @@
 import {register} from 'be-hive/register.js';
-import {define, BeDecoratedProps, DEMethods} from 'be-decorated/DE.js';
+import {define, BeDecoratedProps} from 'be-decorated/DE.js';
 import {ActionExt} from 'be-decorated/types';
 import {Actions, PP, PPE, VirtualProps, Proxy, ProxyProps, PPP} from './types';
 import {EndUserProps as BeBasedEndUserProps} from 'be-based/types';
 import { StreamOrator } from 'stream-orator/StreamOrator.js';
-import {Action} from 'trans-render/lib/types';
+import {Attachable} from 'trans-render/lib/types';
 
 export class BeWritten extends EventTarget implements Actions{
 
@@ -23,14 +23,14 @@ export class BeWritten extends EventTarget implements Actions{
         if(beBased !== undefined){
             import('be-based/be-based.js');
             await customElements.whenDefined('be-based');
-            const {attach} = await import('be-decorated/upgrade.js');
-            const instance = document.createElement('be-based') as any as DEMethods;
+            //const {attach} = await import('be-decorated/upgrade.js');
+            const instance = document.createElement('be-based') as any as Attachable;
             const aTarget = target as any;
             const beBasedEndUserProps = typeof beBased === 'boolean' ? {} : beBased;
             beBasedEndUserProps.base = from; 
             if(aTarget.beDecorated === undefined) aTarget.beDecorated = {};
             aTarget.beDecorated.based = beBasedEndUserProps;
-            attach(target, 'based', instance.attach.bind(instance));
+            instance.attach(target);
         }
         const {StreamOrator, beginStream} = await import('stream-orator/StreamOrator.js');
         const so = new StreamOrator(target, {

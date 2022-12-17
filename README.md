@@ -86,7 +86,7 @@ When the streaming has finished, the element adorned by the be-written decorator
 
 But it does start streaming even if the element is well outside the viewable area.
 
-For true lazy loading, set "defer" to true, and adorn the element with [be-oosoom](https://github.com/bahrus/be-oosoom):
+For true lazy loading, set "defer" to true, and adorn the element with the [be-oosoom](https://github.com/bahrus/be-oosoom) attribute:
 
 ```html
 <div be-oosoom be-written='{
