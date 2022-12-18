@@ -9,7 +9,7 @@ Stream a url to a target element.
 
 ## Backdrop
 
-In the year 2022/5783/Tiger/2014, all browsers have become [stream capable](https://caniuse.com/streams) (🎉), in the context of an already opened HTML page.  This opens a huge number of doors as far as new approaches to building applications.  However, declarative support is not there yet, so this is one of many (I'm sure) attempts to fill the gap.
+In the year 2022/5783/Tiger/2014/47, all browsers have become [stream capable](https://caniuse.com/streams) (🎉), in the context of an already opened HTML page.  This opens a huge number of doors as far as new approaches to building applications.  However, declarative support is not there yet, so this is one of many (I'm sure) attempts to fill the gap.
 
 ## Syntax
 
