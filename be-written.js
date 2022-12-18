@@ -19,7 +19,18 @@ export class BeWritten extends EventTarget {
             const instance = document.createElement('be-based');
             const aTarget = target;
             const beBasedEndUserProps = typeof beBased === 'boolean' ? {} : beBased;
-            beBasedEndUserProps.base = from;
+            let bestGuessAtWhatBaseShouldBe = from;
+            if (!bestGuessAtWhatBaseShouldBe.endsWith('/')) {
+                //this doesn't seem like it will catch all scenarios -- perhaps we should look at the response headers?
+                //The assumption here is that if the end of the url has a period in it, like *.html or *.aspx, then the base of the path should not include that part
+                const split = bestGuessAtWhatBaseShouldBe.split('/');
+                const last = split.at(-1);
+                if (last.indexOf('.') >= -1) { //TODO:  check before ? - query string delimiter
+                    split.pop();
+                }
+                bestGuessAtWhatBaseShouldBe = split.join('/');
+            }
+            beBasedEndUserProps.base = bestGuessAtWhatBaseShouldBe;
             if (aTarget.beDecorated === undefined)
                 aTarget.beDecorated = {};
             aTarget.beDecorated.based = beBasedEndUserProps;
