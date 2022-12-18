@@ -5,7 +5,7 @@
 [![How big is this package in your project?](https://img.shields.io/bundlephobia/minzip/be-written?style=for-the-badge)](https://bundlephobia.com/result?p=be-written)
 <img src="http://img.badgesize.io/https://cdn.jsdelivr.net/npm/be-written?compression=gzip">
 
-Stream a url to a target element.
+Stream a url to a target DOM element.
 
 ## Backdrop
 
