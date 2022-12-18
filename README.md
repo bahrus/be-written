@@ -7,6 +7,12 @@
 
 Stream a url to a target element.
 
+## Backdrop
+
+In the year 2022/5783/Tiger/2014, all browsers have become [stream capable](https://caniuse.com/streams) (🎉), in the context of an already opened HTML page.  This opens a huge number of doors as far as new approaches to building applications.  However, declarative support is not there yet, so this is one of many (I'm sure) attempts to fill the gap.
+
+## Syntax
+
 ```html
 <div be-written=https://html.spec.whatwg.org></div>
 ```
@@ -51,6 +57,8 @@ beBased indicates to enable rewriting url's coming from third parties.  Having i
     <div></div>
 </details>
 ```
+
+> **Note**:  be-written tries its best to adjust url's as needed, but mileage may vary, depending on the browser and the time of day (?) as far as avoiding premature downloads.  One of the key missing platform pieces, in my opinion.
 
 > **Note**:  The [json-in-html](https://marketplace.visualstudio.com/items?itemName=andersonbruceb.json-in-html#:~:text=In%20addition%2C%20json-in-html%20supports%20editing%20json%20within%20html,which%20often%20make%20heavy%20use%20of%20JSON-serialized%20attributes.) vs-code plugin makes editing JSON attributes like this much more pleasant / natural.
 
