@@ -1,5 +1,6 @@
 # be-written
 
+[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/be-written)
 [![NPM version](https://badge.fury.io/js/be-written.png)](http://badge.fury.io/js/be-written)
 [![Playwright Tests](https://github.com/bahrus/be-written/actions/workflows/CI.yml/badge.svg?branch=baseline)](https://github.com/bahrus/be-written/actions/workflows/CI.yml)
 [![How big is this package in your project?](https://img.shields.io/bundlephobia/minzip/be-written?style=for-the-badge)](https://bundlephobia.com/result?p=be-written)
@@ -43,6 +44,8 @@ beBased indicates to enable rewriting url's coming from third parties.  Having i
 3.  [overflow](https://developer.mozilla.org/en-US/docs/Web/CSS/overflow) - worst case?
 
 > **Note**:  be-written tries its best to adjust url's as needed, but mileage may vary, depending on the browser and the time of day (?) as far as avoiding premature downloads.  One of the key missing platform pieces, in my opinion.
+
+> **Note**:  For even more aggressive re-writing, see [be-rewritten](https://github.com/bahrus/be-rewritten) (WIP), which is (partly) stop-gap for [this proposal](https://discourse.wicg.io/t/proposal-support-cloudflares-htmlrewriter-api-in-workers/5721).
 
 > **Note**:  To be HTML5 compliant, use data-be-written for the attribute name instead.
 
