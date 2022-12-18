@@ -42,6 +42,8 @@ beBased indicates to enable rewriting url's coming from third parties.  Having i
 2.  [contain](https://developer.mozilla.org/en-US/docs/Web/CSS/contain)
 3.  [overflow](https://developer.mozilla.org/en-US/docs/Web/CSS/overflow) - worst case?
 
+> **Note**:  be-written tries its best to adjust url's as needed, but mileage may vary, depending on the browser and the time of day (?) as far as avoiding premature downloads.  One of the key missing platform pieces, in my opinion.
+
 > **Note**:  To be HTML5 compliant, use data-be-written for the attribute name instead.
 
 
@@ -58,7 +60,7 @@ beBased indicates to enable rewriting url's coming from third parties.  Having i
 </details>
 ```
 
-> **Note**:  be-written tries its best to adjust url's as needed, but mileage may vary, depending on the browser and the time of day (?) as far as avoiding premature downloads.  One of the key missing platform pieces, in my opinion.
+
 
 > **Note**:  The [json-in-html](https://marketplace.visualstudio.com/items?itemName=andersonbruceb.json-in-html#:~:text=In%20addition%2C%20json-in-html%20supports%20editing%20json%20within%20html,which%20often%20make%20heavy%20use%20of%20JSON-serialized%20attributes.) vs-code plugin makes editing JSON attributes like this much more pleasant / natural.
 
