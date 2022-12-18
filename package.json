@@ -26,14 +26,14 @@
     "package-check": "package-check"
   },
   "dependencies": {
-    "be-based": "0.0.29",
-    "be-decorated": "0.0.207",
+    "be-based": "0.0.30",
+    "be-decorated": "0.0.208",
     "be-hive": "0.0.78",
     "stream-orator": "0.0.16"
   },
   "devDependencies": {
     "may-it-serve": "0.0.4",
-    "@playwright/test": "1.28.1",
+    "@playwright/test": "1.29.0",
     "@skypack/package-check": "0.2.2"
   },
   "repository": {
