@@ -4,7 +4,15 @@ export class BeWritten extends EventTarget {
     //provide hooks for extending decorators like BeRewritten
     async getSet(pp, so, target) { }
     async write(pp) {
-        const { self, shadowRoot, from, to, reqInit, wrapper, beBased, inProgressCss, inserts, between } = pp;
+        const { self, shadowRoot, from, to, reqInit, wrapper, beBased, inProgressCss, inserts, between, once } = pp;
+        if (once) {
+            if (alreadyRequested.has(from)) {
+                return {
+                    resolved: true,
+                };
+            }
+            alreadyRequested.add(from);
+        }
         let target = self;
         if (to !== '.') {
             target = self.querySelector(to);
@@ -59,6 +67,7 @@ export class BeWritten extends EventTarget {
         };
     }
 }
+const alreadyRequested = new Set();
 const tagName = 'be-written';
 const ifWantsToBe = 'written';
 const upgrade = '*';

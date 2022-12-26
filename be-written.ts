@@ -12,7 +12,16 @@ export class BeWritten extends EventTarget implements Actions{
     async getSet(pp: PP, so: StreamOrator, target: Element){}
     async write(pp: PP){
         
-        const {self, shadowRoot, from, to, reqInit, wrapper, beBased, inProgressCss, inserts, between} = pp;
+        const {self, shadowRoot, from, to, reqInit, wrapper, beBased, inProgressCss, inserts, between, once} = pp;
+        if(once){
+            if(alreadyRequested.has(from!)) {
+                return {
+                    resolved: true,
+                } as PPP;
+            }        
+            alreadyRequested.add(from!);
+        }
+
         let target = self;
         if(to !== '.'){
             target = self.querySelector(to!)!;
@@ -67,6 +76,8 @@ export class BeWritten extends EventTarget implements Actions{
 
     }
 }
+
+const alreadyRequested = new Set<string>();
 
 const tagName = 'be-written';
 
