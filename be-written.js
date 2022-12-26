@@ -4,7 +4,7 @@ export class BeWritten extends EventTarget {
     //provide hooks for extending decorators like BeRewritten
     async getSet(pp, so, target) { }
     async write(pp) {
-        const { self, shadowRoot, from, to, reqInit, wrapper, beBased, inProgressCss, inserts } = pp;
+        const { self, shadowRoot, from, to, reqInit, wrapper, beBased, inProgressCss, inserts, between } = pp;
         let target = self;
         if (to !== '.') {
             target = self.querySelector(to);
@@ -40,6 +40,7 @@ export class BeWritten extends EventTarget {
         const so = new StreamOrator(target, {
             shadowRoot,
             rootTag: wrapper,
+            between,
             inserts,
         });
         this.getSet(pp, so, target);
@@ -63,7 +64,7 @@ const ifWantsToBe = 'written';
 const upgrade = '*';
 export const virtualProps = [
     'from', 'to', 'shadowRoot', 'reqInit', 'wrapper', 'beBased', 'defer', 'beOosoom',
-    'inProgressCss', 'inserts'
+    'inProgressCss', 'inserts', 'between', 'once',
 ];
 export const proxyPropDefaults = {
     to: '.',

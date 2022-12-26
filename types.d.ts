@@ -13,6 +13,8 @@ export interface EndUserProps{
     defer?: boolean,
     inProgressCss?: string,
     inserts?:Inserts,
+    between?: [lhs: string, rhs: string],
+    once?: boolean,
 }
 
 export interface VirtualProps extends EndUserProps, MinimalProxy{

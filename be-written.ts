@@ -12,7 +12,7 @@ export class BeWritten extends EventTarget implements Actions{
     async getSet(pp: PP, so: StreamOrator, target: Element){}
     async write(pp: PP){
         
-        const {self, shadowRoot, from, to, reqInit, wrapper, beBased, inProgressCss, inserts} = pp;
+        const {self, shadowRoot, from, to, reqInit, wrapper, beBased, inProgressCss, inserts, between} = pp;
         let target = self;
         if(to !== '.'){
             target = self.querySelector(to!)!;
@@ -47,6 +47,7 @@ export class BeWritten extends EventTarget implements Actions{
         const so = new StreamOrator(target, {
             shadowRoot,
             rootTag: wrapper,
+            between,
             inserts,
         });
         this.getSet(pp, so, target);
@@ -75,7 +76,7 @@ const upgrade = '*';
 
 export const virtualProps: (keyof VirtualProps)[] = [
     'from', 'to', 'shadowRoot', 'reqInit', 'wrapper', 'beBased', 'defer', 'beOosoom',
-    'inProgressCss', 'inserts'
+    'inProgressCss', 'inserts', 'between', 'once',
 ];
 
 export const proxyPropDefaults: Partial<VirtualProps> = {
