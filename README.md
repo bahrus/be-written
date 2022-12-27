@@ -65,6 +65,26 @@ beBased indicates to enable rewriting url's coming from third parties.  Having i
 </details>
 ```
 
+## Between
+
+A crude filter can be applied to the streamed content:
+
+```JavaScript
+"between": ["<!--begin-->", "<!--end-->"]
+```
+
+It is crude because the way the text streams, it is possible that the sought after string spans across to consecutive chunks.  To make the chances of this breaking anything approach nill, repeat the search string twice:
+
+```html
+<template shadowroot="open"><!--begin--><!--begin-->
+    ...
+<!--end--><!--end--></template>
+```
+
+## URL Mapping via link preload tags
+
+The "from" parameter can also be the id of a link tag.  If that is the case, the url that is fetched comes from the href property of the link tag.
+
 
 
 > **Note**:  The [json-in-html](https://marketplace.visualstudio.com/items?itemName=andersonbruceb.json-in-html#:~:text=In%20addition%2C%20json-in-html%20supports%20editing%20json%20within%20html,which%20often%20make%20heavy%20use%20of%20JSON-serialized%20attributes.) vs-code plugin makes editing JSON attributes like this much more pleasant / natural.

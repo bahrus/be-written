@@ -55,7 +55,12 @@ export class BeWritten extends EventTarget {
         if (inProgressCss) {
             self.classList.add('be-written-in-progress');
         }
-        await so.fetch(from, reqInit);
+        let finalURL = from;
+        const linkTest = globalThis[finalURL];
+        if (linkTest instanceof HTMLLinkElement) {
+            finalURL = linkTest.href;
+        }
+        await so.fetch(finalURL, reqInit);
         if (inProgressCss) {
             self.classList.remove('be-written-in-progress');
         }
