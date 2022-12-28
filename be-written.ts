@@ -78,7 +78,7 @@ export class BeWritten extends EventTarget implements Actions{
                             break;
                         }
                     }
-                }
+                }catch(e){}
                 
             }
         }

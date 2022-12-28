@@ -72,8 +72,7 @@ export class BeWritten extends EventTarget {
                         }
                     }
                 }
-                finally {
-                }
+                catch (e) { }
             }
         }
         await so.fetch(finalURL, reqInit);
