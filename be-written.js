@@ -60,7 +60,7 @@ export class BeWritten extends EventTarget {
         if (linkTest instanceof HTMLLinkElement) {
             finalURL = linkTest.href;
         }
-        else if (lowerCaseRe.test(finalURL)) {
+        else if (lowerCaseRe.test(finalURL[0])) {
             const importMap = document.querySelector('script[type="importmap"]');
             if (importMap !== null) {
                 try {
@@ -87,7 +87,7 @@ export class BeWritten extends EventTarget {
         };
     }
 }
-const lowerCaseRe = /a-z/i;
+const lowerCaseRe = /^[a-zA-Z]/;
 const alreadyRequested = new Set();
 const tagName = 'be-written';
 const ifWantsToBe = 'written';

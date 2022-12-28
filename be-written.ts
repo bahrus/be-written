@@ -67,7 +67,7 @@ export class BeWritten extends EventTarget implements Actions{
         const linkTest = (<any>globalThis)[finalURL];
         if(linkTest instanceof HTMLLinkElement){
             finalURL = linkTest.href;
-        }else if(lowerCaseRe.test(finalURL)){
+        }else if(lowerCaseRe.test(finalURL[0])){
             const importMap = document.querySelector('script[type="importmap"]');
             if(importMap !== null){
                 try{
@@ -96,7 +96,7 @@ export class BeWritten extends EventTarget implements Actions{
     }
 }
 
-const lowerCaseRe = /a-z/i;
+const lowerCaseRe = /^[a-zA-Z]/;
 
 const alreadyRequested = new Set<string>();
 
