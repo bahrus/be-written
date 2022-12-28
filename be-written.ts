@@ -67,6 +67,20 @@ export class BeWritten extends EventTarget implements Actions{
         const linkTest = (<any>globalThis)[finalURL];
         if(linkTest instanceof HTMLLinkElement){
             finalURL = linkTest.href;
+        }else if(lowerCaseRe.test(finalURL)){
+            const importMap = document.querySelector('script[type="importmap"]');
+            if(importMap !== null){
+                try{
+                    const imports = JSON.parse(importMap.innerHTML).imports;
+                    for(const key in imports){
+                        if(finalURL.startsWith(key)){
+                            finalURL = finalURL.replace(key, imports[key]);
+                            break;
+                        }
+                    }
+                }
+                
+            }
         }
         await so.fetch(finalURL, reqInit!);
         if(inProgressCss){
@@ -81,6 +95,8 @@ export class BeWritten extends EventTarget implements Actions{
 
     }
 }
+
+const lowerCaseRe = /a-z/i;
 
 const alreadyRequested = new Set<string>();
 

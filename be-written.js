@@ -60,6 +60,22 @@ export class BeWritten extends EventTarget {
         if (linkTest instanceof HTMLLinkElement) {
             finalURL = linkTest.href;
         }
+        else if (lowerCaseRe.test(finalURL)) {
+            const importMap = document.querySelector('script[type="importmap"]');
+            if (importMap !== null) {
+                try {
+                    const imports = JSON.parse(importMap.innerHTML).imports;
+                    for (const key in imports) {
+                        if (finalURL.startsWith(key)) {
+                            finalURL = finalURL.replace(key, imports[key]);
+                            break;
+                        }
+                    }
+                }
+                finally {
+                }
+            }
+        }
         await so.fetch(finalURL, reqInit);
         if (inProgressCss) {
             self.classList.remove('be-written-in-progress');
@@ -72,6 +88,7 @@ export class BeWritten extends EventTarget {
         };
     }
 }
+const lowerCaseRe = /a-z/i;
 const alreadyRequested = new Set();
 const tagName = 'be-written';
 const ifWantsToBe = 'written';
