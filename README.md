@@ -49,6 +49,8 @@ beBased indicates to enable rewriting url's coming from third parties.  Having i
 
 > **Note**:  For even more aggressive re-writing, see [be-rewritten](https://github.com/bahrus/be-rewritten) (WIP), which is (partly) a stop-gap for [this proposal](https://discourse.wicg.io/t/proposal-support-cloudflares-htmlrewriter-api-in-workers/5721).
 
+> **Note**:  For importing HTML optimized for HTML-first web components, see [be-importing](https://github.com/bahrus/be-importing).
+
 > **Note**:  To be HTML5 compliant, use data-be-written for the attribute name instead.
 
 
@@ -84,6 +86,20 @@ It is crude because the way the text streams, it is possible that the sought aft
 ## URL Mapping via link preload tags
 
 The "from" parameter can also be the id of a link tag.  If that is the case, the url that is fetched comes from the href property of the link tag.
+
+## Support for import maps
+
+*be-written* also supports rudimentary url substitution based on import maps:
+
+```html
+<script type=importmap>{
+    "imports":{
+        "xtal-side-nav/": "https://cdn.jsdelivr.net/npm/xtal-side-nav@0.0.104/"
+    }
+}</script>
+<xtal-side-nav be-rewritten=xtal-side-nav/xtal-side-nav.html></xtal-side-nav>
+
+```
 
 
 
