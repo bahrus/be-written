@@ -26,8 +26,8 @@
     "package-check": "package-check"
   },
   "dependencies": {
-    "be-based": "0.0.35",
-    "be-decorated": "0.0.216",
+    "be-based": "0.0.36",
+    "be-decorated": "0.0.217",
     "be-hive": "0.0.79",
     "stream-orator": "0.0.20"
   },
