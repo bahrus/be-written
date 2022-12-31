@@ -26,10 +26,10 @@
     "package-check": "package-check"
   },
   "dependencies": {
-    "be-based": "0.0.34",
-    "be-decorated": "0.0.214",
+    "be-based": "0.0.35",
+    "be-decorated": "0.0.216",
     "be-hive": "0.0.79",
-    "stream-orator": "0.0.18"
+    "stream-orator": "0.0.20"
   },
   "devDependencies": {
     "may-it-serve": "0.0.4",
