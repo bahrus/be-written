@@ -97,7 +97,7 @@ The "from" parameter can also be the id of a link tag.  If that is the case, the
         "xtal-side-nav/": "https://cdn.jsdelivr.net/npm/xtal-side-nav@0.0.104/"
     }
 }</script>
-<xtal-side-nav be-rewritten=xtal-side-nav/xtal-side-nav.html></xtal-side-nav>
+<xtal-side-nav be-written=xtal-side-nav/xtal-side-nav.html></xtal-side-nav>
 
 ```
 
