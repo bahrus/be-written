@@ -37,6 +37,56 @@ reqInit is the second optional parameter of fetch.
 
 beBased indicates to enable rewriting url's coming from third parties.  Having it set to true (the default), does impose something of a performance cost, so set it to false if that works okay.
 
+## What about security? [TODO]
+
+Security is a particularly thorny issue for this component, and is one of the many slam dunk reasons this functionality really should be built into the browser, with proper security mechanisms in place.  In particular, the ability to filter out script tags and other dangerous HTML is nearly impossible with the currently available, cross-browser api's, afaik.  So if the stream contains script tags or other such syntax, it will be written with no interference.
+
+In the absence of any signs of mercy from the w3c, we apply security thusly:
+
+1.  be-written has support for import maps, and also for url resolving via link tags (preload attribute).
+2.  Since import maps require the web page to specify things inside a script tag, and link tags are tags which are filtered out from any DOM purification / sanitizing, we can rely on this to assume that if a path is specified by either an import map or a link preload tag, the site has given a green light for content coming from that url.
+3.  Thus, be-rewritten provides rudimentary support for import maps, and for url resolving via link preload tags. 
+4.  Not only does be-rewritten provide this rudimentary support, it **requires** that the path be "endorsed" by one or both of these mechanisms.  
+
+So in fact the example shown above will not work. 
+
+To make it work, do one of the following:
+
+```html
+<head>
+    <!--doesn't have to be in the head tag, but it's probably where it should go -->
+    <script type=importmap>
+        {
+            "imports": {
+                "https://html.spec.whatwg.org/": "https://html.spec.whatwg.org/"
+            }
+        }
+    </script>
+</head>
+...
+<div be-written='{
+    "from": "https://html.spec.whatwg.org/",
+    "to": ".",
+    "reqInit": {},
+    "beBased": true
+}'>
+```
+
+and/or:
+
+```html
+<head>
+    <link id="https://html.spec.whatwg.org/" rel=preload as=fetch href="https://html.spec.whatwg.org/">
+</head>
+...
+<div be-written='{
+    "from": "https://html.spec.whatwg.org/",
+    "to": ".",
+    "reqInit": {},
+    "beBased": true
+}'>
+```
+
 > **Note**:  This web component is a member of the [be-decorated](https://github.com/bahrus/be-decorated) family of element decorators / behaviors.  As such, it can also become active during [template instantiation](https://github.com/bahrus/trans-render#extending-tr-dtr-horizontally), though my head spins even thinking about it.
 
 > **Note**:   By streaming content into the live DOM Document, it is quite possible the browser will find itself performing multiple page reflows.  Be sure to use the Chrome Dev tools (for example) | rendering | web vitals to watch for any performance issues.  Various CSS approaches can be employed to minimize this:
