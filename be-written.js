@@ -56,9 +56,11 @@ export class BeWritten extends EventTarget {
             self.classList.add('be-written-in-progress');
         }
         let finalURL = from;
+        let passedSecTest = false;
         const linkTest = globalThis[finalURL];
         if (linkTest instanceof HTMLLinkElement) {
             finalURL = linkTest.href;
+            passedSecTest = true;
         }
         else if (lowerCaseRe.test(finalURL[0])) {
             const importMap = document.querySelector('script[type="importmap"]');
@@ -68,6 +70,7 @@ export class BeWritten extends EventTarget {
                     for (const key in imports) {
                         if (finalURL.startsWith(key)) {
                             finalURL = finalURL.replace(key, imports[key]);
+                            passedSecTest = true;
                             break;
                         }
                     }
@@ -75,6 +78,8 @@ export class BeWritten extends EventTarget {
                 catch (e) { }
             }
         }
+        if (!passedSecTest)
+            throw 'URL not resolved by import maps or link tag.';
         await so.fetch(finalURL, reqInit);
         if (inProgressCss) {
             self.classList.remove('be-written-in-progress');

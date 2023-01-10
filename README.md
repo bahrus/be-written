@@ -37,7 +37,7 @@ reqInit is the second optional parameter of fetch.
 
 beBased indicates to enable rewriting url's coming from third parties.  Having it set to true (the default), does impose something of a performance cost, so set it to false if that works okay.
 
-## What about security? [TODO]
+## What about security?
 
 Security is a particularly thorny issue for this component, and is one of the many slam dunk reasons this functionality really should be built into the browser, with proper security mechanisms in place.  In particular, the ability to filter out script tags and other dangerous HTML is nearly impossible with the currently available, cross-browser api's, afaik.  So if the stream contains script tags or other such syntax, it will be written with no interference.
 
