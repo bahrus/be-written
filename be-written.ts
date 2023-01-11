@@ -63,29 +63,8 @@ export class BeWritten extends EventTarget implements Actions{
         if(inProgressCss){
             self.classList.add('be-written-in-progress');
         }
-        let finalURL = from!;
-        let passedSecTest = false;
-        const linkTest = (<any>globalThis)[finalURL];
-        if(linkTest instanceof HTMLLinkElement){
-            finalURL = linkTest.href;
-            passedSecTest = true;
-        }else if(lowerCaseRe.test(finalURL[0])){
-            const importMap = document.querySelector('script[type="importmap"]');
-            if(importMap !== null){
-                try{
-                    const imports = JSON.parse(importMap.innerHTML).imports;
-                    for(const key in imports){
-                        if(finalURL.startsWith(key)){
-                            finalURL = finalURL.replace(key, imports[key]);
-                            passedSecTest = true;
-                            break;
-                        }
-                    }
-                }catch(e){}
-                
-            }
-        }
-        if(!passedSecTest) throw 'URL not resolved by import maps or link tag.'
+        const {resolve} = await import('trans-render/lib/resolve.js');
+        let finalURL = resolve(from!);
         await so.fetch(finalURL, reqInit!);
         if(inProgressCss){
             self.classList.remove('be-written-in-progress');

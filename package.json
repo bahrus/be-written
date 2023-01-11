@@ -30,7 +30,8 @@
     "be-based": "0.0.37",
     "be-decorated": "0.0.218",
     "be-hive": "0.0.79",
-    "stream-orator": "0.0.20"
+    "stream-orator": "0.0.20",
+    "trans-render": "0.0.660"
   },
   "devDependencies": {
     "may-it-serve": "0.0.4",
