@@ -37,6 +37,7 @@ export class BeWritten extends EventTarget implements Actions{
             const aTarget = target as any;
             const beBasedEndUserProps = typeof beBased === 'boolean' ? {} : beBased;
             let bestGuessAtWhatBaseShouldBe = from!;
+            let fileName = '';
             if(!bestGuessAtWhatBaseShouldBe.endsWith('/')){
                 //this doesn't seem like it will catch all scenarios -- perhaps we should look at the response headers?
                 //The assumption here is that if the end of the url has a period in it, like *.html or *.aspx, then the base of the path should not include that part
@@ -44,10 +45,14 @@ export class BeWritten extends EventTarget implements Actions{
                 const last = split.at(-1)!;
                 if(last.indexOf('.') >= -1){ //TODO:  check before ? - query string delimiter
                     split.pop();
+                    
+                    fileName = last;
+                    //console.log({fileName});
                 }
                 bestGuessAtWhatBaseShouldBe = split.join('/');
             }
-            beBasedEndUserProps.base = bestGuessAtWhatBaseShouldBe; 
+            beBasedEndUserProps.base = bestGuessAtWhatBaseShouldBe;
+            beBasedEndUserProps.fileName = fileName; 
             if(aTarget.beDecorated === undefined) aTarget.beDecorated = {};
             aTarget.beDecorated.based = beBasedEndUserProps;
             instance.attach(target);
