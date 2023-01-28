@@ -43,8 +43,8 @@ Security is a particularly thorny issue for this component, and is one of the ma
 
 In the absence of any signs of mercy from the w3c, we apply security thusly:
 
-1.  be-written has support for import maps, and also for url resolving via link tags (preload attribute).
-2.  Since import maps require the web page to specify things inside a script tag, and link tags are tags which are filtered out from any DOM purification / sanitizing, we can rely on this to assume that if a path is specified by either an import map or a link preload tag, the site has given a green light for content coming from that url.
+1.  be-written has support for import maps, and also for url resolving via link tags (preload attribute) having attribute onblur [TODO].
+2.  Since import maps require the web page to specify things inside a script tag, and onblur attributes are things which are filtered out from any DOM purification / sanitizing, we can rely on this to assume that if a path is specified by either an import map or a link preload tag with an onblur attribute, the site has given a green light for content coming from that url.
 3.  Thus, be-rewritten provides rudimentary support for import maps, and for url resolving via link preload tags. 
 4.  Not only does be-rewritten provide this rudimentary support, it **requires** that the path be "endorsed" by one or both of these mechanisms.  
 
@@ -76,7 +76,7 @@ and/or:
 
 ```html
 <head>
-    <link id="https://html.spec.whatwg.org/" rel=preload as=fetch href="https://html.spec.whatwg.org/">
+    <link id="https://html.spec.whatwg.org/" rel=preload as=fetch href="https://html.spec.whatwg.org/" onblur=x>
 </head>
 ...
 <div be-written='{
