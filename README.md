@@ -123,7 +123,7 @@ A crude filter can be applied to the streamed content:
 "between": ["<!--begin-->", "<!--end-->"]
 ```
 
-It is crude because the way the text streams, it is possible that the sought after string spans across two consecutive chunks.  To make the chances of this breaking anything approach nill, repeat the search string twice:
+It is crude because the way the text streams, it is possible that the sought after string spans across two consecutive chunks.  To make the chances of this breaking anything approach nil, repeat the search string twice:
 
 ```html
 <template shadowrootmode="open"><!--begin--><!--begin-->
