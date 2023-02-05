@@ -64,12 +64,7 @@ To make it work, do one of the following:
     </script>
 </head>
 ...
-<div be-written='{
-    "from": "https://html.spec.whatwg.org/",
-    "to": ".",
-    "reqInit": {},
-    "beBased": true
-}'>
+<div be-written=https://html.spec.whatwg.org/></div>
 ```
 
 and/or:
@@ -85,12 +80,7 @@ and/or:
     >
 </head>
 ...
-<div be-written='{
-    "from": "https://html.spec.whatwg.org/",
-    "to": ".",
-    "reqInit": {},
-    "beBased": true
-}'>
+<div be-written=https://html.spec.whatwg.org/ ></div>
 ```
 
 What goes inside the onerror attribute, if anything, is entirely up to each application/developer.  But the presence of the onerror attribute is required to unlock the capability of being streamed into the browser.
