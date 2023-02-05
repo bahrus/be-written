@@ -4,7 +4,7 @@ import {ActionExt} from 'be-decorated/types';
 import {Actions, PP, PPE, VirtualProps, Proxy, ProxyProps, PPP} from './types';
 import {EndUserProps as BeBasedEndUserProps} from 'be-based/types';
 import { StreamOrator } from 'stream-orator/StreamOrator.js';
-import {Attachable} from 'trans-render/lib/types';
+import {Attachable} from './node_modules/trans-render/lib/types';
 
 export class BeWritten extends EventTarget implements Actions{
 
