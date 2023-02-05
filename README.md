@@ -76,7 +76,13 @@ and/or:
 
 ```html
 <head>
-    <link id="https://html.spec.whatwg.org/" rel=preload as=fetch href="https://html.spec.whatwg.org/" onerror="console.error(href)">
+    <link
+        id="https://html.spec.whatwg.org/" 
+        rel=preload 
+        as=fetch 
+        href="https://html.spec.whatwg.org/" 
+        onerror="console.error(href)"
+    >
 </head>
 ...
 <div be-written='{
@@ -86,6 +92,8 @@ and/or:
     "beBased": true
 }'>
 ```
+
+What goes inside the onerror attribute, if anything, is entirely up to each application/developer.  But the presence of the onerror attribute is required to unlock the capability of being streamed into the browser.
 
 > **Note**:  This web component is a member of the [be-decorated](https://github.com/bahrus/be-decorated) family of element decorators / behaviors.  As such, it can also become active during [template instantiation](https://github.com/bahrus/trans-render#extending-tr-dtr-horizontally), though my head spins even thinking about it.
 
