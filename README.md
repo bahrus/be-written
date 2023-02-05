@@ -136,18 +136,18 @@ A crude filter can be applied to the streamed content:
 It is crude because the way the text streams, it is possible that the sought after string spans across two consecutive chunks.  To make the chances of this breaking anything approach nill, repeat the search string twice:
 
 ```html
-<template shadowroot="open"><!--begin--><!--begin-->
+<template shadowrootmode="open"><!--begin--><!--begin-->
     ...
 <!--end--><!--end--></template>
 ```
 
 ## URL Mapping via link preload tags
 
-The "from" parameter can also be the id of a link tag.  If that is the case, the url that is fetched comes from the href property of the link tag.
+As alluded to earlier, the "from" parameter can also be the id of a link tag.  If that is the case, the url that is fetched comes from the href property of the link tag.  But remember, the link tag requires having an (empty) onblur attribute present to ensure it didn't pass through the standard sanitizing settings.
 
 ## Support for import maps
 
-*be-written* also supports rudimentary url substitution based on import maps:
+Also as mentioned earlier, *be-written* supports rudimentary url substitution based on import maps:
 
 ```html
 <script type=importmap>{
