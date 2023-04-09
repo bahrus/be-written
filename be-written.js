@@ -1,7 +1,7 @@
 import { register } from 'be-hive/register.js';
 import { define } from 'be-decorated/DE.js';
 export class BeWritten extends EventTarget {
-    //provide hooks for extending decorators like BeRewritten
+    //provide hooks for extending decorators like BeRewritten, BeImporting
     async getSet(pp, so, target) { }
     async write(pp) {
         const { self, shadowRoot, from, to, reqInit, wrapper, beBased, inProgressCss, inserts, between, once } = pp;
@@ -19,6 +19,32 @@ export class BeWritten extends EventTarget {
         }
         if (shadowRoot !== undefined && target.shadowRoot === null) {
             target.attachShadow({ mode: shadowRoot });
+        }
+        //look for bundling.  If bundled, we can assume all the links have been properly adjusted.
+        const linkTest = globalThis[from];
+        if (linkTest instanceof HTMLLinkElement) {
+            const importedID = linkTest.dataset.imported;
+            if (importedID !== undefined) {
+                const imported = this.importTempl(importedID, shadowRoot, target);
+                if (imported) {
+                    return {
+                        resolved: true,
+                    };
+                }
+                if (document.readyState === 'loading') {
+                    const { proxy } = pp;
+                    document.addEventListener('readystatechange', e => {
+                        const imported = this.importTempl(importedID, shadowRoot, target);
+                        if (imported) {
+                            proxy.resolved = true;
+                        }
+                        else {
+                            console.error('bW.404');
+                        }
+                    }, { once: true });
+                }
+                return {};
+            }
         }
         if (beBased !== undefined) {
             import('be-based/be-based.js');
@@ -55,7 +81,12 @@ export class BeWritten extends EventTarget {
             between,
             inserts,
         });
-        this.getSet(pp, so, target);
+        if (!this.getSet(pp, so, target)) {
+            return {
+                resolved: true,
+            };
+        }
+        ;
         if (inProgressCss) {
             self.classList.add('be-written-in-progress');
         }
@@ -71,6 +102,16 @@ export class BeWritten extends EventTarget {
         return {
             resolved: true,
         };
+    }
+    importTempl(importedID, shadowRoot, target) {
+        const templ = globalThis[importedID];
+        if (templ !== undefined) {
+            const fragment = shadowRoot !== undefined ? target.shadowRoot : target;
+            fragment.innerHTML = '';
+            fragment.appendChild(templ.content.cloneNode(true));
+            return true;
+        }
+        return false;
     }
 }
 const lowerCaseRe = /^[a-zA-Z]/;

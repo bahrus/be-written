@@ -30,7 +30,32 @@ export class BeWritten extends EventTarget implements Actions{
             target.attachShadow({mode: shadowRoot});
         }
         //look for bundling.  If bundled, we can assume all the links have been properly adjusted.
-        
+        const linkTest = (<any>globalThis)[from!];
+        if(linkTest instanceof HTMLLinkElement){
+            const importedID = linkTest.dataset.imported;
+            if(importedID !== undefined){
+                const imported = this.importTempl(importedID, shadowRoot, target);
+                if(imported){
+                    return {
+                        resolved: true,
+                    } as PPP;
+                }
+
+                if(document.readyState === 'loading'){
+                    const {proxy} = pp;
+                    document.addEventListener('readystatechange', e => {
+                        const imported = this.importTempl(importedID, shadowRoot, target);
+                        if(imported){
+                            proxy.resolved = true;
+                        }else{
+                            console.error('bW.404');
+                        }
+                    }, {once: true})
+
+                }
+                return {};
+            }
+        }
         if(beBased !== undefined){
             import('be-based/be-based.js');
             await customElements.whenDefined('be-based');
@@ -87,6 +112,17 @@ export class BeWritten extends EventTarget implements Actions{
             resolved: true,
         } as PPP;
 
+    }
+
+    importTempl(importedID: string, shadowRoot: 'open' | 'closed' | undefined, target: Element ){
+        const templ = (<any>globalThis)[importedID!] as HTMLTemplateElement;
+        if(templ !== undefined){
+            const fragment = shadowRoot !== undefined ? target.shadowRoot! : target;
+            fragment.innerHTML = '';
+            fragment.appendChild(templ.content.cloneNode(true));
+            return true;
+        }
+        return false;
     }
 }
 

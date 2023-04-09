@@ -43,10 +43,9 @@ Security is a particularly thorny issue for this component, and is one of the ma
 
 In the absence of any signs of mercy from the w3c, we apply security thusly:
 
-1.  be-written has support for import maps, and also for url resolving via link tags (preload attribute), as long as the link tags have an onerror attribute.
-2.  Since import maps require the web page to specify things inside a script tag, and onerror attributes are things which are filtered out from most any DOM purification / sanitizing, we can rely on this to assume that if a path is specified by either an import map or a link preload tag with an onerror attribute, the site has given a green light for content coming from that url.
-3.  Thus, be-rewritten provides rudimentary support for import maps, and for url resolving via link preload tags. 
-4.  Not only does be-rewritten provide this rudimentary support, it **requires** that the path be "endorsed" by one or both of these mechanisms.  
+1.  Since import maps require the web page to specify things inside a script tag, and onerror attributes are things which are filtered out from most any DOM purification / sanitizing, we can rely on this to assume that if a path is specified by either an import map or a link preload tag with an onerror attribute, the site has given a green light for content coming from that url.
+2.  Thus, be-rewritten provides rudimentary support for import maps, and for url resolving via link preload tags, as long as the link tags have onerror attributes. 
+3.  Not only does be-rewritten provide this rudimentary support, it **requires** that the path be "endorsed" by one or both of these mechanisms.  
 
 So in fact the example shown above will not work. 
 
@@ -85,16 +84,16 @@ and/or:
 
 What goes inside the onerror attribute, if anything, is entirely up to each application/developer.  But the presence of the onerror attribute is required to unlock the capability of being streamed into the browser.
 
-## Support for bundling [TODO]
+## Support for bundling
 
 It seems likely, even with all the advances that HTTP/3 provides, that in cases where most of the users are hit-and-run type visitors, some amount of bundling would be beneficial when it comes time to deploy to production.  Or maybe it is a bit difficult to say which is better - bundling or no bundling, so switching back and forth seamlessly is of upmost importance.
 
 The fact that the value of the url to be imported isn't specified directly in the be-written adorned element(s), that we need to pass through some extra hoops to be secure and safe in our streaming, actually has the happy benefit that it can help with managing bundling at the same time, as discussed below.
 
-Recommended approach (tentative)
+Recommended approach
 
-1.  If bundling support is needed (potentially), then you must adopt the link preload tag approach mentioned above. Import maps are also fine, but will be ignored if everything matches up with a link preload tag.  Don't forget to add the onblur attribute.  And remember, if the use of the url won't come into play until well after the page has loaded, use some other value for rel (recommendation: "lazy", or just remove it completely).
-2.  If bundling was accomplished, either during a build process, or dynamically by the server, the process should add attribute "data-imported" to the link tag, which specifies the id of the template.  The process should also remove "rel=preload" if applicable.
+1.  If bundling support is needed (potentially), then you must adopt the link preload tag approach mentioned above. Import maps are also fine, and may be more convenient to use during development, but they provide no support for bundling.  Don't forget to add the onblur attribute to the link tag.  And remember, if the use of the url won't come into play until well after the page has loaded, use some other value for rel (recommendation: "lazy", or just remove it completely).
+2.  If bundling can be accomplished, either during a build process, or dynamically by the server, the process that performs the bundling should add attribute "data-imported" to the link tag, which specifies the id of the template.  The process should also remove "rel=preload" if applicable.
 
 So basically:
 
@@ -129,13 +128,7 @@ So basically:
 
 It may even be better to append (some of) the template(s) at the end of the body tag, if there are many many template imports.  If they are all front loaded in the head tag, it would mean delays before the user can see above the fold content.  
 
-What *be-importing* does is search fo the matching template by id.  If not found, it waits for document loaded event (if applicable) in case the bundled content was added at the end of the document.  If at that time, it cannot locate the template, it logs an error.
-
-
-
-
-
-
+What *be-written* does is search for the matching template by id.  If not found, it waits for document loaded event (if applicable) in case the bundled content was added at the end of the document.  If at that time, it cannot locate the template, it logs an error.
 
 
 > **Note**:  This web component is a member of the [be-decorated](https://github.com/bahrus/be-decorated) family of element decorators / behaviors.  As such, it can also become active during [template instantiation](https://github.com/bahrus/trans-render#extending-tr-dtr-horizontally), though my head spins even thinking about it.
