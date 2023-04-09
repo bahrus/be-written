@@ -8,7 +8,7 @@ import {Attachable} from './node_modules/trans-render/lib/types';
 
 export class BeWritten extends EventTarget implements Actions{
 
-    //provide hooks for extending decorators like BeRewritten
+    //provide hooks for extending decorators like BeRewritten, BeImporting
     async getSet(pp: PP, so: StreamOrator, target: Element){}
     async write(pp: PP){
         
@@ -29,6 +29,8 @@ export class BeWritten extends EventTarget implements Actions{
         if(shadowRoot !== undefined && target.shadowRoot === null){
             target.attachShadow({mode: shadowRoot});
         }
+        //look for bundling.  If bundled, we can assume all the links have been properly adjusted.
+        
         if(beBased !== undefined){
             import('be-based/be-based.js');
             await customElements.whenDefined('be-based');
@@ -64,7 +66,11 @@ export class BeWritten extends EventTarget implements Actions{
             between,
             inserts,
         });
-        this.getSet(pp, so, target);
+        if(!this.getSet(pp, so, target)){
+            return {
+                resolved: true,
+            } as PPP;
+        };
         if(inProgressCss){
             self.classList.add('be-written-in-progress');
         }
