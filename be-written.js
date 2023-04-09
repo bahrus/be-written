@@ -22,7 +22,7 @@ export class BeWritten extends EventTarget {
         }
         //look for bundling.  If bundled, we can assume all the links have been properly adjusted.
         const linkTest = globalThis[from];
-        if (linkTest instanceof HTMLLinkElement) {
+        if (linkTest instanceof HTMLLinkElement && linkTest.hasAttribute('onerror')) {
             const importedID = linkTest.dataset.imported;
             if (importedID !== undefined) {
                 const imported = this.importTempl(importedID, shadowRoot, target);

@@ -88,11 +88,11 @@ What goes inside the onerror attribute, if anything, is entirely up to each appl
 
 It seems likely, even with all the advances that HTTP/3 provides, that in cases where most of the users are hit-and-run type visitors, some amount of bundling would be beneficial when it comes time to deploy to production.  Or maybe it is a bit difficult to say which is better - bundling or no bundling, so switching back and forth seamlessly is of upmost importance.
 
-The fact that the value of the url to be imported isn't specified directly in the be-written adorned element(s), that we need to pass through some extra hoops to be secure and safe in our streaming, actually has the happy benefit that it can help with managing bundling at the same time, as discussed below.
+The fact that the security dictates that we can't directly specify the url of what we want to stream directly in the adorned element, is actually a blessing in disguise when we consider how to bundle.  This is how bundling can work quite easily with be-written (but will require some custom solution for whatever build system you are adopting)
 
-Recommended approach
+### Bundling instructions
 
-1.  If bundling support is needed (potentially), then you must adopt the link preload tag approach mentioned above. Import maps are also fine, and may be more convenient to use during development, but they provide no support for bundling.  Don't forget to add the onblur attribute to the link tag.  And remember, if the use of the url won't come into play until well after the page has loaded, use some other value for rel (recommendation: "lazy", or just remove it completely).
+1.  If bundling support is needed (potentially), then you must adopt the link preload tag approach mentioned above. Import maps are also fine, and may be more convenient to use during development, but they provide no support for bundling, [due to lack of a standard way of specifying metadata](https://github.com/WICG/import-maps#supplying-out-of-band-metadata-for-each-module).  So link preload tags is the least cumbersome approach.  Don't forget to add the onblur attribute to the link tag.  And remember, if the use of the url won't come into play until well after the page has loaded, use some other value for rel (recommendation: "lazy", or just remove it completely).
 2.  If bundling can be accomplished, either during a build process, or dynamically by the server, the process that performs the bundling should add attribute "data-imported" to the link tag, which specifies the id of the template.  The process should also remove "rel=preload" if applicable.
 
 So basically:
