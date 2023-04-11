@@ -44,8 +44,8 @@ Security is a particularly thorny issue for this component, and is one of the ma
 In the absence of any signs of mercy from the w3c, we apply security thusly:
 
 1.  Since import maps require the web page to specify things inside a script tag, and onerror attributes are things which are filtered out from most any DOM purification / sanitizing, we can rely on this to assume that if a path is specified by either an import map or a link preload tag with an onerror attribute, the site has given a green light for content coming from that url.
-2.  Thus, be-rewritten provides rudimentary support for import maps, and for url resolving via link preload tags, as long as the link tags have onerror attributes. 
-3.  Not only does be-rewritten provide this rudimentary support, it **requires** that the path be "endorsed" by one or both of these mechanisms.  
+2.  Thus, be-written provides rudimentary support for import maps, and for url resolving via link preload tags, as long as the link tags have onerror attributes. 
+3.  Not only does be-written provide this rudimentary support, it **requires** that the path be "endorsed" by one or both of these mechanisms.  
 
 So in fact the example shown above will not work. 
 
@@ -141,7 +141,7 @@ What *be-written* does is search for the matching template by id.  If not found,
 
 > **Note**:  be-written tries its best to adjust url's as needed, but mileage may vary, depending on the browser and the time of day (?) as far as avoiding premature downloads.  One of the key [missing platform pieces](https://discourse.wicg.io/t/proposal-base-attribute-to-specify-base-url-for-relative-urls-contained-within/6064), in my opinion.
 
-> **Note**:  For even more aggressive re-writing, see [be-rewritten](https://github.com/bahrus/be-rewritten) (WIP), which is (partly) a stop-gap for [this proposal](https://discourse.wicg.io/t/proposal-support-cloudflares-htmlrewriter-api-in-workers/5721).
+> **Note**:  For even more aggressive re-writing, see [be-rewritten](https://github.com/bahrus/be-rewritten) (WIP), which is (partly) a stop-gap for [this proposal](https://discourse.wicg.io/t/proposal-support-cloudflares-htmlrewriter-api-in-workers/5721).  However, it has recently come to my attention that there is now a browser-compatible implementation that [supports streaming](https://github.com/worker-tools/html-rewriter).  Payload size not yet known.  So that is something I hope to explore[TODO].
 
 > **Note**:  For importing HTML optimized for HTML-first web components, see [be-importing](https://github.com/bahrus/be-importing).
 
