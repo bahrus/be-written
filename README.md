@@ -18,7 +18,7 @@ In the year 2022/5783/Tiger/2076/2014/47, all browsers have become [stream capab
 <div be-written=https://html.spec.whatwg.org></div>
 ```
 
-... streams the contents of https://html.spec.whatwg.org into the div.
+... streams the contents of https://html.spec.whatwg.org into the div (well, see below for one significant caveat).
 
 The syntax above is shorthand for:
 
@@ -57,13 +57,13 @@ To make it work, do one of the following:
     <script type=importmap>
         {
             "imports": {
-                "https://html.spec.whatwg.org/": "https://html.spec.whatwg.org/"
+                "html-spec": "https://html.spec.whatwg.org/"
             }
         }
     </script>
 </head>
 ...
-<div be-written=https://html.spec.whatwg.org/></div>
+<div be-written=html-spec></div>
 ```
 
 and/or:
@@ -71,7 +71,7 @@ and/or:
 ```html
 <head>
     <link
-        id="https://html.spec.whatwg.org/" 
+        id="html-spec" 
         rel=preload 
         as=fetch 
         href="https://html.spec.whatwg.org/" 
@@ -79,7 +79,7 @@ and/or:
     >
 </head>
 ...
-<div be-written=https://html.spec.whatwg.org/ ></div>
+<div be-written=html-spec ></div>
 ```
 
 What goes inside the onerror attribute, if anything, is entirely up to each application/developer.  But the presence of the onerror attribute is required to unlock the capability of being streamed into the browser.
@@ -88,7 +88,7 @@ What goes inside the onerror attribute, if anything, is entirely up to each appl
 
 It seems likely, even with all the advances that HTTP/3 provides, that in cases where most of the users are hit-and-run type visitors, some amount of bundling would be beneficial when it comes time to deploy to production.  Or maybe it is a bit difficult to say which is better - bundling or no bundling, so switching back and forth seamlessly is of upmost importance.
 
-The fact that the security dictates that we can't directly specify the url of what we want to stream directly in the adorned element, is actually a blessing in disguise when we consider how to bundle.  This is how bundling can work quite easily with be-written (but will require some custom solution for whatever build system you are adopting)
+The fact that the necessity for security dictates that we can't directly specify the url of what we want to stream directly in the adorned element, actually can be viewed as a blessing in disguise when we consider how to bundle.  This is how bundling can work quite easily with be-written (but will require some custom solution for whatever build system you are adopting)
 
 ### Bundling instructions
 
