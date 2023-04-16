@@ -92,7 +92,7 @@ The fact that the necessity for security dictates that we can't directly specify
 
 ### Bundling instructions
 
-1.  If bundling support is needed (potentially), then you must adopt the link preload tag approach mentioned above. Import maps are also fine, and may be more convenient to use during development, but they provide no support for bundling, [due to lack of a standard way of specifying metadata](https://github.com/WICG/import-maps#supplying-out-of-band-metadata-for-each-module).  So link preload tags is the least cumbersome approach.  Don't forget to add the onblur attribute to the link tag.  And remember, if the use of the url won't come into play until well after the page has loaded, use some other value for rel (recommendation: "lazy", or just remove it completely).
+1.  If bundling support is needed (potentially), then you must adopt the link preload tag approach mentioned above. Import maps are also fine, and may be more convenient to use during development, but they provide no support for bundling, [due to lack of a standard way of specifying metadata](https://github.com/WICG/import-maps#supplying-out-of-band-metadata-for-each-module).  So link preload tags is the least cumbersome approach.  Don't forget to add the onerror attribute to the link tag.  And remember, if the use of the url won't come into play until well after the page has loaded, use some other value for rel (recommendation: "lazy", or just remove it completely).
 2.  If bundling can be accomplished, either during a build process, or dynamically by the server, the process that performs the bundling should add attribute "data-imported" to the link tag, which specifies the id of the template.  The process should also remove "rel=preload" if applicable.
 
 So basically:
@@ -100,7 +100,7 @@ So basically:
 ```html
 <link id=xtal-side-nav/xtal-side-nav.html 
     rel=preload as=fetch href=https://cdn.jsdelivr.net/npm/xtal-side-nav@0.0.110/xtal-side-nav.html 
-    onblur=console.error(href)>
+    onerror=console.error(href)>
 ```
 
 ...becomes, during the build / server rendering process:
@@ -111,7 +111,7 @@ So basically:
     ...
     <link id=xtal-side-nav/xtal-side-nav.html 
         data-imported=032c2e8a-36a7-4f9c-96a0-673cba30c142 
-        onblur=console.error(href)
+        onerror=console.error(href)
         as=fetch 
         href=https://cdn.jsdelivr.net/npm/xtal-side-nav@0.0.110/xtal-side-nav.html>
     ...
@@ -179,7 +179,7 @@ It is crude because the way the text streams, it is possible that the sought aft
 
 ## URL Mapping via link preload tags
 
-As alluded to earlier, the "from" parameter can also be the id of a link tag.  If that is the case, the url that is fetched comes from the href property of the link tag.  But remember, the link tag requires having an (empty) onblur attribute present to ensure it didn't pass through the standard sanitizing settings.
+As alluded to earlier, the "from" parameter can also be the id of a link tag.  If that is the case, the url that is fetched comes from the href property of the link tag.  But remember, the link tag requires having an (empty) onerror attribute present to ensure it didn't pass through the standard sanitizing settings.
 
 ## Support for import maps
 
