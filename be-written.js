@@ -1,10 +1,17 @@
+import { BE, propDefaults, propInfo } from 'be-enhanced/BE.js';
+import { XE } from 'xtal-element/XE.js';
 import { register } from 'be-hive/register.js';
-import { define } from 'be-decorated/DE.js';
-export class BeWritten extends EventTarget {
+export class BeWritten extends BE {
+    static get beConfig() {
+        return {
+            parse: true,
+            primaryProp: 'from'
+        };
+    }
     //provide hooks for extending decorators like BeRewritten, BeImporting
-    async getSet(pp, so, target) { }
-    async write(pp) {
-        const { self, shadowRoot, from, to, reqInit, wrapper, beBased, inProgressCss, inserts, between, once } = pp;
+    async getSet(self, so, target) { }
+    async write(self) {
+        const { enhancedElement, shadowRootMode, from, to, reqInit, wrapper, beBased, inProgressCss, inserts, between, once } = self;
         if (once) {
             if (alreadyRequested.has(from)) {
                 return {
@@ -13,30 +20,29 @@ export class BeWritten extends EventTarget {
             }
             alreadyRequested.add(from);
         }
-        let target = self;
+        let target = enhancedElement;
         if (to !== '.') {
-            target = self.querySelector(to);
+            target = enhancedElement.querySelector(to);
         }
-        if (shadowRoot !== undefined && target.shadowRoot === null) {
-            target.attachShadow({ mode: shadowRoot });
+        if (shadowRootMode !== undefined && target.shadowRoot === null) {
+            target.attachShadow({ mode: shadowRootMode });
         }
         //look for bundling.  If bundled, we can assume all the links have been properly adjusted.
         const linkTest = globalThis[from];
         if (linkTest instanceof HTMLLinkElement && linkTest.hasAttribute('onerror')) {
             const importedID = linkTest.dataset.imported;
             if (importedID !== undefined) {
-                const imported = this.importTempl(importedID, shadowRoot, target);
+                const imported = this.importTempl(importedID, shadowRootMode, target);
                 if (imported) {
                     return {
                         resolved: true,
                     };
                 }
                 if (document.readyState === 'loading') {
-                    const { proxy } = pp;
                     document.addEventListener('readystatechange', e => {
-                        const imported = this.importTempl(importedID, shadowRoot, target);
+                        const imported = this.importTempl(importedID, shadowRootMode, target);
                         if (imported) {
-                            proxy.resolved = true;
+                            self.resolved = true;
                         }
                         else {
                             console.error('bW.404');
@@ -49,10 +55,9 @@ export class BeWritten extends EventTarget {
         if (beBased !== undefined) {
             import('be-based/be-based.js');
             await customElements.whenDefined('be-based');
+            const base = enhancedElement.beEnhanced.by.beBased;
             //const {attach} = await import('be-decorated/upgrade.js');
-            const instance = document.createElement('be-based');
-            const aTarget = target;
-            const beBasedEndUserProps = typeof beBased === 'boolean' ? {} : beBased;
+            const beBasedEndUserProps = (typeof beBased === 'boolean' ? {} : beBased);
             let bestGuessAtWhatBaseShouldBe = from;
             let fileName = '';
             if (!bestGuessAtWhatBaseShouldBe.endsWith('/')) {
@@ -69,32 +74,29 @@ export class BeWritten extends EventTarget {
             }
             beBasedEndUserProps.base = bestGuessAtWhatBaseShouldBe;
             beBasedEndUserProps.fileName = fileName;
-            if (aTarget.beDecorated === undefined)
-                aTarget.beDecorated = {};
-            aTarget.beDecorated.based = beBasedEndUserProps;
-            instance.attach(target);
+            Object.assign(base, beBasedEndUserProps);
         }
         const { StreamOrator, beginStream } = await import('stream-orator/StreamOrator.js');
         const so = new StreamOrator(target, {
-            shadowRoot,
+            shadowRoot: shadowRootMode,
             rootTag: wrapper,
             between,
             inserts,
         });
-        if (!this.getSet(pp, so, target)) {
+        if (!this.getSet(self, so, target)) {
             return {
                 resolved: true,
             };
         }
         ;
         if (inProgressCss) {
-            self.classList.add('be-written-in-progress');
+            enhancedElement.classList.add('be-written-in-progress');
         }
         const { resolve } = await import('trans-render/lib/resolve.js');
         let finalURL = resolve(from);
         await so.fetch(finalURL, reqInit);
         if (inProgressCss) {
-            self.classList.remove('be-written-in-progress');
+            enhancedElement.classList.remove('be-written-in-progress');
         }
         if (beBased) {
             target.beDecorated.based.controller.disconnect();
@@ -119,35 +121,34 @@ const alreadyRequested = new Set();
 const tagName = 'be-written';
 const ifWantsToBe = 'written';
 const upgrade = '*';
-export const virtualProps = [
-    'from', 'to', 'shadowRoot', 'reqInit', 'wrapper', 'beBased', 'defer', 'beOosoom',
-    'inProgressCss', 'inserts', 'between', 'once',
-];
-export const proxyPropDefaults = {
+export const beWrittenPropDefaults = {
     to: '.',
     beBased: true,
     beOosoom: '!defer'
 };
-export const actions = {
-    write: {
-        ifAllOf: ['from', 'to'],
-        ifNoneOf: ['defer']
-    }
-};
-define({
+// export const beWrittenActions: Partial<{[key in keyof Actions]: Action<VirtualProps & BeDecoratedProps<VirtualProps, Actions>, Actions>}> = {
+//     write: {
+//         ifAllOf: ['from', 'to'],
+//         ifNoneOf: ['defer']
+//     }
+// }
+const xe = new XE({
     config: {
         tagName,
         propDefaults: {
-            ifWantsToBe,
-            upgrade,
-            virtualProps,
-            primaryProp: 'from',
-            proxyPropDefaults
+            ...propDefaults,
+            ...beWrittenPropDefaults
         },
-        actions,
+        propInfo: {
+            ...propInfo
+        },
+        actions: {
+            write: {
+                ifAllOf: ['from', 'to'],
+                ifNoneOf: ['defer']
+            }
+        }
     },
-    complexPropDefaults: {
-        controller: BeWritten,
-    }
+    superclass: BeWritten
 });
 register(ifWantsToBe, upgrade, tagName);
