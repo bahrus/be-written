@@ -27,16 +27,15 @@
     "safari": "npx playwright wk http://localhost:3030"
   },
   "dependencies": {
-    "be-based": "0.0.41",
-    "be-decorated": "0.0.238",
-    "be-hive": "0.0.82",
+    "be-based": "0.0.42",
+    "be-enhanced": "0.0.17",
     "stream-orator": "0.0.20",
-    "trans-render": "0.0.671"
+    "trans-render": "0.0.680",
+    "xtal-element": "0.0.560"
   },
   "devDependencies": {
     "may-it-serve": "0.0.5",
-    "@playwright/test": "1.32.1",
-    "@skypack/package-check": "0.2.2"
+    "@playwright/test": "1.32.1"
   },
   "repository": {
     "type": "git",
