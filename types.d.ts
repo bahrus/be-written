@@ -1,11 +1,12 @@
-import {BeDecoratedProps, MinimalProxy, EventConfigs} from 'be-decorated/types';
+import { ActionOnEventConfigs } from "trans-render/froop/types";
+import {IBE} from 'be-enhanced/types';
 import {EndUserProps as BeBasedEndUserProps} from 'be-based/types';
 import {Inserts} from 'stream-orator/types';
 
-export interface EndUserProps{
+export interface EndUserProps extends IBE{
     from?: string,
     to?: string,
-    shadowRoot?: 'open' | 'closed'
+    shadowRootMode?: 'open' | 'closed'
     reqInit?: RequestInit,
     wrapper?: string,
     beBased?: boolean | BeBasedEndUserProps,
@@ -17,22 +18,20 @@ export interface EndUserProps{
     once?: boolean,
 }
 
-export interface VirtualProps extends EndUserProps, MinimalProxy{
+export interface AllProps extends EndUserProps{
 
 }
 
-export type Proxy = Element & VirtualProps;
+export interface AllProps extends EndUserProps {}
 
-export interface ProxyProps extends VirtualProps{
-    proxy: Proxy;
-}
+export type AP = AllProps;
 
-export type PP = ProxyProps;
+export type PAP = Partial<AP>;
 
-export type PPP = Partial<ProxyProps>;
+export type ProPAP = Promise<PAP>;
 
-export type PPE = [PPP, EventConfigs<Proxy, Actions>];
+export type POA = [PAP | undefined, ActionOnEventConfigs<PAP, Actions>]
 
 export interface Actions{
-    write(pp: PP): Promise<PPP>;
+    write(self: this): ProPAP;
 }

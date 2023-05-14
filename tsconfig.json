@@ -9,7 +9,7 @@
 		"strict": true,
 	},
 	"files":[
-		"be-written.ts"
+		"be-written2.ts"
 	],
 	"exclude":[
 		"node_modules"
