@@ -55,9 +55,8 @@ export class BeWritten extends BE {
         if (beBased !== undefined) {
             import('be-based/be-based.js');
             await customElements.whenDefined('be-based');
+            const base = enhancedElement.beEnhanced.by.beBased;
             //const {attach} = await import('be-decorated/upgrade.js');
-            const instance = document.createElement('be-based');
-            const aTarget = target;
             const beBasedEndUserProps = (typeof beBased === 'boolean' ? {} : beBased);
             let bestGuessAtWhatBaseShouldBe = from;
             let fileName = '';
@@ -75,10 +74,7 @@ export class BeWritten extends BE {
             }
             beBasedEndUserProps.base = bestGuessAtWhatBaseShouldBe;
             beBasedEndUserProps.fileName = fileName;
-            if (aTarget.beDecorated === undefined)
-                aTarget.beDecorated = {};
-            aTarget.beDecorated.based = beBasedEndUserProps;
-            instance.attach(target);
+            Object.assign(base, beBasedEndUserProps);
         }
         const { StreamOrator, beginStream } = await import('stream-orator/StreamOrator.js');
         const so = new StreamOrator(target, {

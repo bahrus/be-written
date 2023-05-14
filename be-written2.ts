@@ -66,9 +66,8 @@ export class BeWritten extends BE<AP, Actions> implements Actions{
         if(beBased !== undefined){
             import('be-based/be-based.js');
             await customElements.whenDefined('be-based');
+            const base = (<any>enhancedElement).beEnhanced.by.beBased;
             //const {attach} = await import('be-decorated/upgrade.js');
-            const instance = document.createElement('be-based') as any as Attachable;
-            const aTarget = target as any;
             const beBasedEndUserProps = (typeof beBased === 'boolean' ? {} : beBased) as BeBasedEndUserProps;
             let bestGuessAtWhatBaseShouldBe = from!;
             let fileName = '';
@@ -87,9 +86,7 @@ export class BeWritten extends BE<AP, Actions> implements Actions{
             }
             beBasedEndUserProps.base = bestGuessAtWhatBaseShouldBe;
             beBasedEndUserProps.fileName = fileName; 
-            if(aTarget.beDecorated === undefined) aTarget.beDecorated = {};
-            aTarget.beDecorated.based = beBasedEndUserProps;
-            instance.attach(target);
+            Object.assign(base, beBasedEndUserProps);
         }
         const {StreamOrator, beginStream} = await import('stream-orator/StreamOrator.js');
         const so = new StreamOrator(target, {
