@@ -30,7 +30,7 @@ export type PAP = Partial<AP>;
 
 export type ProPAP = Promise<PAP>;
 
-export type POA = [PAP | undefined, ActionOnEventConfigs<PAP, Actions>]
+export type POA = [PAP | undefined, ActionOnEventConfigs<PAP, Actions>];
 
 export interface Actions{
     write(self: this): ProPAP;

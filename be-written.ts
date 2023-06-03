@@ -4,7 +4,6 @@ import {XE} from 'xtal-element/XE.js';
 import {Actions, AllProps, AP, PAP, ProPAP, POA} from './types';
 import {register} from 'be-hive/register.js';
 import { StreamOrator } from 'stream-orator/StreamOrator.js';
-import {Attachable} from 'trans-render';
 import {EndUserProps as BeBasedEndUserProps} from 'be-based/types';
 
 export class BeWritten extends BE<AP, Actions> implements Actions{
