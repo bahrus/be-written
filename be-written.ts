@@ -5,6 +5,7 @@ import {Actions, AllProps, AP, PAP, ProPAP, POA} from './types';
 import {register} from 'be-hive/register.js';
 import { StreamOrator } from 'stream-orator/StreamOrator.js';
 import {EndUserProps as BeBasedEndUserProps} from 'be-based/types';
+import {Action} from 'trans-render/lib/types';
 
 export class BeWritten extends BE<AP, Actions> implements Actions{
     static  override get beConfig(){
@@ -146,12 +147,13 @@ export const beWrittenPropDefaults: Partial<AP> = {
     beOosoom: '!defer'
 };
 
-// export const beWrittenActions: Partial<{[key in keyof Actions]: Action<VirtualProps & BeDecoratedProps<VirtualProps, Actions>, Actions>}> = {
-//     write: {
-//         ifAllOf: ['from', 'to'],
-//         ifNoneOf: ['defer']
-//     }
-// }
+export const BeWrittenActions = {
+    write: {
+        ifAllOf: ['from', 'to'],
+        ifNoneOf: ['defer']
+    }
+} as Partial<{[key in keyof Actions]: Action | keyof AP}>;
+
 
 const xe = new XE<AP, Actions>({
     config: {
@@ -164,10 +166,7 @@ const xe = new XE<AP, Actions>({
             ...propInfo
         },
         actions: {
-            write:{
-                ifAllOf: ['from', 'to'],
-                ifNoneOf: ['defer']
-            }
+            ...BeWrittenActions,
         }
     },
     superclass: BeWritten

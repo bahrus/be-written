@@ -126,12 +126,12 @@ export const beWrittenPropDefaults = {
     beBased: true,
     beOosoom: '!defer'
 };
-// export const beWrittenActions: Partial<{[key in keyof Actions]: Action<VirtualProps & BeDecoratedProps<VirtualProps, Actions>, Actions>}> = {
-//     write: {
-//         ifAllOf: ['from', 'to'],
-//         ifNoneOf: ['defer']
-//     }
-// }
+export const BeWrittenActions = {
+    write: {
+        ifAllOf: ['from', 'to'],
+        ifNoneOf: ['defer']
+    }
+};
 const xe = new XE({
     config: {
         tagName,
@@ -143,10 +143,7 @@ const xe = new XE({
             ...propInfo
         },
         actions: {
-            write: {
-                ifAllOf: ['from', 'to'],
-                ifNoneOf: ['defer']
-            }
+            ...BeWrittenActions,
         }
     },
     superclass: BeWritten
