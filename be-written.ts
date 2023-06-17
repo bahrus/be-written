@@ -110,7 +110,7 @@ export class BeWritten extends BE<AP, Actions> implements Actions{
             enhancedElement.classList.remove('be-written-in-progress');
         }
         if(beBased){
-            (<any>target).beDecorated.based.controller.disconnect();
+            (<any>target).beEnhanced.beBased.disconnect();
         }
         return {
             resolved: true,

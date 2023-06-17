@@ -99,7 +99,7 @@ export class BeWritten extends BE {
             enhancedElement.classList.remove('be-written-in-progress');
         }
         if (beBased) {
-            target.beDecorated.based.controller.disconnect();
+            target.beEnhanced.beBased.disconnect();
         }
         return {
             resolved: true,
