@@ -52,13 +52,15 @@ export class BeWritten extends BE {
                 return {};
             }
         }
+        const { resolve } = await import('trans-render/lib/resolve.js');
+        let finalURL = resolve(from);
         if (beBased !== undefined) {
             import('be-based/be-based.js');
             await customElements.whenDefined('be-based');
             const base = enhancedElement.beEnhanced.by.beBased;
             //const {attach} = await import('be-decorated/upgrade.js');
             const beBasedEndUserProps = (typeof beBased === 'boolean' ? {} : beBased);
-            let bestGuessAtWhatBaseShouldBe = from;
+            let bestGuessAtWhatBaseShouldBe = finalURL;
             let fileName = '';
             if (!bestGuessAtWhatBaseShouldBe.endsWith('/')) {
                 //this doesn't seem like it will catch all scenarios -- perhaps we should look at the response headers?
@@ -92,8 +94,6 @@ export class BeWritten extends BE {
         if (inProgressCss) {
             enhancedElement.classList.add('be-written-in-progress');
         }
-        const { resolve } = await import('trans-render/lib/resolve.js');
-        let finalURL = resolve(from);
         await so.fetch(finalURL, reqInit);
         if (inProgressCss) {
             enhancedElement.classList.remove('be-written-in-progress');
