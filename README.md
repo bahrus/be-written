@@ -131,22 +131,26 @@ It may even be better to append (some of) the template(s) at the end of the body
 What *be-written* does is search for the matching template by id.  If not found, it waits for document loaded event (if applicable) in case the bundled content was added at the end of the document.  If at that time, it cannot locate the template, it logs an error.
 
 
-> **Note**:  This web component is a member of the [be-enhanced](https://github.com/bahrus/be-enhanced) family of [element enhancements](https://github.com/WICG/webcomponents/issues/1000).  As such, it can also become active during [template instantiation](https://github.com/bahrus/trans-render#extending-tr-dtr-horizontally), though my head spins even thinking about it.
+> [!NOTE]
+> This web component is a member of the [be-enhanced](https://github.com/bahrus/be-enhanced) family of [custom enhancements](https://github.com/WICG/webcomponents/issues/1000).  As such, it can also become active during [template instantiation](https://github.com/bahrus/trans-render#extending-tr-dtr-horizontally), though my head spins even thinking about it.
 
-> **Note**:   By streaming content into the live DOM Document, it is quite possible the browser will find itself performing multiple page reflows.  Be sure to use the Chrome Dev tools (for example) | rendering | web vitals to watch for any performance issues.  Various CSS approaches can be employed to minimize this:
+> [!NOTE]
+> By streaming content into the live DOM Document, it is quite possible the browser will find itself performing multiple page reflows.  Be sure to use the Chrome Dev tools (for example) | rendering | web vitals to watch for any performance issues.  Various CSS approaches can be employed to minimize this:
 
 1.  [content-visibility](https://developer.mozilla.org/en-US/docs/Web/CSS/content-visibility)
 2.  [contain](https://developer.mozilla.org/en-US/docs/Web/CSS/contain)
 3.  [overflow](https://developer.mozilla.org/en-US/docs/Web/CSS/overflow) - worst case?
 
 > [!NOTE]
-> be-written tries its best to adjust url's as needed, but mileage may vary, depending on the browser and the time of day (?) as far as avoiding premature downloads (404's).
+> *be-written* tries its best to adjust url's as needed, but mileage may vary, depending on the browser and the time of day (?) as far as avoiding premature downloads (404's).
 
-> [!NOTE]:  For even more aggressive re-writing, see [be-rewritten](https://github.com/bahrus/be-rewritten) (WIP), which is (partly) a stop-gap for [this proposal](https://discourse.wicg.io/t/proposal-support-cloudflares-htmlrewriter-api-in-workers/5721).  However, it has recently come to my attention that there is now a browser-compatible implementation that [supports streaming](https://github.com/worker-tools/html-rewriter).  Payload size not yet known.  So that is something I hope to explore[TODO].
+> [!NOTE]
+> If you need to modify the HTML as it streams through,  [be-rewritten](https://github.com/bahrus/be-rewritten) [Big-time WIP, not at all ready for prime time], which is (partly) a stop-gap for this key missing [primitive](https://github.com/whatwg/dom/issues/1222).  However, it has recently come to my attention that there is now a browser-compatible implementation that [supports streaming](https://github.com/worker-tools/html-rewriter).  Payload size seems too high for me to embrace it, but it I think it's great they provide that option, in case it meets your needs.
 
-> [!NOTE]:  For importing HTML optimized for HTML-first web components, see [be-importing](https://github.com/bahrus/be-importing).
+> [!NOTE]
+> For importing HTML optimized for HTML-first web components, see [be-importing](https://github.com/bahrus/be-importing).
 
-> [!NOTE]:  To be HTML5 compliant, use data-be-written for the attribute name instead.
+> [!NOTE]:  To be HTML5 compliant, use data-enh-by-be-written for the attribute name instead [Untested].
 
 
 ## With Shadow DOM
@@ -155,7 +159,7 @@ What *be-written* does is search for the matching template by id.  If not found,
 <details be-written='{
     "from": "https://html.spec.whatwg.org/",
     "to": "div",
-    "shadowRoot": "open"
+    "shadowRootMode": "open"
 }'>
     <summary>HTML Specs</summary>
     <div></div>
@@ -180,7 +184,7 @@ It is crude because the way the text streams, it is possible that the sought aft
 
 ## URL Mapping via link preload tags
 
-As alluded to earlier, the "from" parameter can also be the id of a link tag.  If that is the case, the url that is fetched comes from the href property of the link tag.  But remember, the link tag requires having an (empty) onerror attribute present to ensure it didn't pass through the standard sanitizing settings.
+As alluded to earlier, the "from" parameter can also be the id of a link tag.  If that is the case, the url that is fetched comes from the href property of the link tag.  But remember, the link tag requires having an onerror attribute present to ensure it has been given the green light by the site.
 
 ## Support for import maps
 
@@ -195,8 +199,6 @@ Also as mentioned earlier, *be-written* supports rudimentary url substitution ba
 <xtal-side-nav be-written=xtal-side-nav/xtal-side-nav.html></xtal-side-nav>
 
 ```
-
-
 
 > **Note**:  The [json-in-html](https://marketplace.visualstudio.com/items?itemName=andersonbruceb.json-in-html#:~:text=In%20addition%2C%20json-in-html%20supports%20editing%20json%20within%20html,which%20often%20make%20heavy%20use%20of%20JSON-serialized%20attributes.) vs-code plugin makes editing JSON attributes like this much more pleasant / natural.
 
@@ -227,15 +229,11 @@ The HTML must pass through the standard sanitizing api that is becoming part of 
 
 ## Notification when finished
 
-When the streaming has finished, the element adorned by the be-written decorator emits event: "be-decorated.written.resolved".
+When the streaming has finished, the element adorned by the be-written decorator emits event: "enh-by-be-decorated.written.resolved".
 
 ## Lazy Loading
 
-*be-written* already has some lazy-loading built in -- the decorator only becomes activated when the element it adorns has been rendered (so if it is inside a details element, it will not stream until the details element is expanded).
-
-But it does start streaming even if the element is well outside the viewable area.
-
-For true lazy loading, set "defer" to true, and adorn the element with the [be-oosoom](https://github.com/bahrus/be-oosoom) attribute:
+For lazy loading, set "defer" to true, and adorn the element with the [be-oosoom](https://github.com/bahrus/be-oosoom) attribute:
 
 ```html
 <div be-oosoom be-written='{
@@ -245,6 +243,8 @@ For true lazy loading, set "defer" to true, and adorn the element with the [be-o
 ```
 
 ## Viewing Locally
+
+Any web server that can serve static html files will do, but...
 
 1.  Install git.
 2.  Fork/clone this repo.
