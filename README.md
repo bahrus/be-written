@@ -57,13 +57,13 @@ To make it work, do one of the following:
     <script type=importmap>
         {
             "imports": {
-                "html-spec": "https://html.spec.whatwg.org/"
+                "html-spec/": "https://html.spec.whatwg.org/"
             }
         }
     </script>
 </head>
 ...
-<div be-written=html-spec></div>
+<div be-written="html-spec/"></div>
 ```
 
 and/or:
@@ -79,7 +79,7 @@ and/or:
     >
 </head>
 ...
-<div be-written=html-spec ></div>
+<div be-written=html-spec></div>
 ```
 
 What goes inside the onerror attribute, if anything, is entirely up to each application/developer.  But the presence of the onerror attribute is required to unlock the capability of being streamed into the browser.
@@ -131,7 +131,7 @@ It may even be better to append (some of) the template(s) at the end of the body
 What *be-written* does is search for the matching template by id.  If not found, it waits for document loaded event (if applicable) in case the bundled content was added at the end of the document.  If at that time, it cannot locate the template, it logs an error.
 
 
-> **Note**:  This web component is a member of the [be-decorated](https://github.com/bahrus/be-decorated) family of element decorators / behaviors.  As such, it can also become active during [template instantiation](https://github.com/bahrus/trans-render#extending-tr-dtr-horizontally), though my head spins even thinking about it.
+> **Note**:  This web component is a member of the [be-enhanced](https://github.com/bahrus/be-enhanced) family of [element enhancements](https://github.com/WICG/webcomponents/issues/1000).  As such, it can also become active during [template instantiation](https://github.com/bahrus/trans-render#extending-tr-dtr-horizontally), though my head spins even thinking about it.
 
 > **Note**:   By streaming content into the live DOM Document, it is quite possible the browser will find itself performing multiple page reflows.  Be sure to use the Chrome Dev tools (for example) | rendering | web vitals to watch for any performance issues.  Various CSS approaches can be employed to minimize this:
 
@@ -139,13 +139,13 @@ What *be-written* does is search for the matching template by id.  If not found,
 2.  [contain](https://developer.mozilla.org/en-US/docs/Web/CSS/contain)
 3.  [overflow](https://developer.mozilla.org/en-US/docs/Web/CSS/overflow) - worst case?
 
-> **Note**:  be-written tries its best to adjust url's as needed, but mileage may vary, depending on the browser and the time of day (?) as far as avoiding premature downloads.  One of the key [missing platform pieces](https://discourse.wicg.io/t/proposal-base-attribute-to-specify-base-url-for-relative-urls-contained-within/6064), in my opinion.
+> [!NOTE]:  be-written tries its best to adjust url's as needed, but mileage may vary, depending on the browser and the time of day (?) as far as avoiding premature downloads.  One of the key [missing platform pieces](https://discourse.wicg.io/t/proposal-base-attribute-to-specify-base-url-for-relative-urls-contained-within/6064), in my opinion.
 
-> **Note**:  For even more aggressive re-writing, see [be-rewritten](https://github.com/bahrus/be-rewritten) (WIP), which is (partly) a stop-gap for [this proposal](https://discourse.wicg.io/t/proposal-support-cloudflares-htmlrewriter-api-in-workers/5721).  However, it has recently come to my attention that there is now a browser-compatible implementation that [supports streaming](https://github.com/worker-tools/html-rewriter).  Payload size not yet known.  So that is something I hope to explore[TODO].
+> [!NOTE]:  For even more aggressive re-writing, see [be-rewritten](https://github.com/bahrus/be-rewritten) (WIP), which is (partly) a stop-gap for [this proposal](https://discourse.wicg.io/t/proposal-support-cloudflares-htmlrewriter-api-in-workers/5721).  However, it has recently come to my attention that there is now a browser-compatible implementation that [supports streaming](https://github.com/worker-tools/html-rewriter).  Payload size not yet known.  So that is something I hope to explore[TODO].
 
-> **Note**:  For importing HTML optimized for HTML-first web components, see [be-importing](https://github.com/bahrus/be-importing).
+> [!NOTE]:  For importing HTML optimized for HTML-first web components, see [be-importing](https://github.com/bahrus/be-importing).
 
-> **Note**:  To be HTML5 compliant, use data-be-written for the attribute name instead.
+> [!NOTE]:  To be HTML5 compliant, use data-be-written for the attribute name instead.
 
 
 ## With Shadow DOM
