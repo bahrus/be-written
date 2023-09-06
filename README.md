@@ -139,7 +139,8 @@ What *be-written* does is search for the matching template by id.  If not found,
 2.  [contain](https://developer.mozilla.org/en-US/docs/Web/CSS/contain)
 3.  [overflow](https://developer.mozilla.org/en-US/docs/Web/CSS/overflow) - worst case?
 
-> [!NOTE]:  be-written tries its best to adjust url's as needed, but mileage may vary, depending on the browser and the time of day (?) as far as avoiding premature downloads.  One of the key [missing platform pieces](https://discourse.wicg.io/t/proposal-base-attribute-to-specify-base-url-for-relative-urls-contained-within/6064), in my opinion.
+> [!NOTE]
+> be-written tries its best to adjust url's as needed, but mileage may vary, depending on the browser and the time of day (?) as far as avoiding premature downloads (404's).
 
 > [!NOTE]:  For even more aggressive re-writing, see [be-rewritten](https://github.com/bahrus/be-rewritten) (WIP), which is (partly) a stop-gap for [this proposal](https://discourse.wicg.io/t/proposal-support-cloudflares-htmlrewriter-api-in-workers/5721).  However, it has recently come to my attention that there is now a browser-compatible implementation that [supports streaming](https://github.com/worker-tools/html-rewriter).  Payload size not yet known.  So that is something I hope to explore[TODO].
 
