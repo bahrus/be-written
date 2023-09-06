@@ -130,6 +130,7 @@ It may even be better to append (some of) the template(s) at the end of the body
 
 What *be-written* does is search for the matching template by id.  If not found, it waits for document loaded event (if applicable) in case the bundled content was added at the end of the document.  If at that time, it cannot locate the template, it logs an error.
 
+[TODO]:  Support be-a-beacon for faster resolution time.
 
 > [!NOTE]
 > This web component is a member of the [be-enhanced](https://github.com/bahrus/be-enhanced) family of [custom enhancements](https://github.com/WICG/webcomponents/issues/1000).  As such, it can also become active during [template instantiation](https://github.com/bahrus/trans-render#extending-tr-dtr-horizontally), though my head spins even thinking about it.
