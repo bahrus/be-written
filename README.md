@@ -146,7 +146,7 @@ What *be-written* does is search for the matching template by id.  If not found,
 > *be-written* tries its best to adjust url's as needed, but mileage may vary, depending on the browser and the time of day (?) as far as avoiding premature downloads (404's).
 
 > [!NOTE]
-> If you need to modify the HTML as it streams through,  [be-rewritten](https://github.com/bahrus/be-rewritten) [Big-time WIP, not at all ready for prime time], which is (partly) a stop-gap for this key missing [primitive](https://github.com/whatwg/dom/issues/1222).  However, it has recently come to my attention that there is now a browser-compatible implementation that [supports streaming](https://github.com/worker-tools/html-rewriter).  Payload size seems too high for me to embrace it, but I think it's great they provide that option, in case it meets your needs.
+> If you need to modify the HTML as it streams through,  [be-rewritten](https://github.com/bahrus/be-rewritten) [Big-time WIP, not at all ready for prime time], which is (partly) a stop-gap for this key missing [primitive](https://github.com/whatwg/dom/issues/1222).  However, it has come to my attention that there is now a browser-compatible implementation that [supports streaming](https://github.com/worker-tools/html-rewriter).  Payload size seems too high for me to embrace it, but I think it's great they provide that option, in case it meets your needs.
 
 > [!NOTE]
 > For importing HTML optimized for HTML-first web components, see [be-importing](https://github.com/bahrus/be-importing).
