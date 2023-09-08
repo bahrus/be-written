@@ -65,6 +65,7 @@ export class BeWritten extends BE<AP, Actions> implements Actions{
         }
         const {resolve} = await import('trans-render/lib/resolve.js');
         let finalURL = resolve(from!);
+        import('be-a-beacon/be-a-beacon.js');
         if(beBased !== undefined){
             import('be-based/be-based.js');
             await customElements.whenDefined('be-based');

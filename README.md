@@ -88,7 +88,7 @@ What goes inside the onerror attribute, if anything, is entirely up to each appl
 
 It seems likely, even with all the advances that HTTP/3 provides, that in cases where most of the users are hit-and-run type visitors, some amount of bundling would be beneficial when it comes time to deploy to production.  Or maybe it is a bit difficult to say which is better - bundling or no bundling, so switching back and forth seamlessly is of upmost importance.
 
-The fact that the necessity for security dictates that we can't directly specify the url of what we want to stream directly in the adorned element, actually can be viewed as a blessing in disguise when we consider how to bundle.  This is how bundling can work quite easily with be-written (but will require some custom solution for whatever build system you are adopting)
+The fact that the necessity for security dictates that we can't directly specify the url of what we want to stream directly in the adorned element, actually can be viewed as a blessing in disguise when we consider how to bundle.  This is how bundling can work quite easily with be-written (but will require some custom solution for whatever build system you are adopting).
 
 ### Bundling instructions
 
@@ -98,11 +98,19 @@ There are two scenarios to consider when bundling -- a page only has one instanc
 <div be-written="html-spec/"></div>
 ```
 
-In this case, the most effective way to bundle would be to do what this custom enhancement does, but during the build process.
+vs lots of instances.  
+
+In the former case, the most effective way to bundle may be to do what this custom enhancement does, but during the build process -- essentially, copy and paste the contents of the resource inside the tag.  In that scenario, might as well remove the be-written attribute during the build process, so that this enhancement can go fishing for the weekend.
+
+However, because be-written does a bit more than simply blindly paste the full contents of the resource into the tag (such as support snipping the contents and other things described in the rest of this document), some attention should be applied to get an exact duplicate of functionality. 
+
+*be-written* makes the commitment that if the platform decides to embrace all of humanity and fight global warming by endorsing [this proposal](https://github.com/whatwg/dom/issues/1222), *be-written*, in gratitude, will add a build plugin based on that API, that takes care of all that nuance, in order to achieve that optimal user experience (and I will also forever shut up about their lack of HTML love). I'm  sure that's precisely the incentive that will sway them to get cracking.   
+
+In the absence of such a plugin,  or if the page contains two or more references to the same reference, or if lazy loading is needed then the instructions below seem to me to be more effective:
 
 
-1.  If bundling support is needed (potentially), then you must adopt the link preload tag approach mentioned above. Import maps are also fine, and may be more convenient to use during development, but they provide no support for bundling, [due to lack of a standard way of specifying metadata](https://github.com/WICG/import-maps#supplying-out-of-band-metadata-for-each-module).  So link preload tags is the least cumbersome approach.  Don't forget to add the onerror attribute to the link tag.  And remember, if the use of the url won't come into play until well after the page has loaded, use some other value for rel (recommendation: "lazy", or just remove it completely).
-2.  If bundling can be accomplished, either during a build process, or dynamically by the server, the process that performs the bundling should add attribute "data-imported" to the link tag, which specifies the id of the template.  The process should also remove "rel=preload" if applicable.
+1.  You must adopt the link preload tag approach mentioned above. Import maps are also fine, and may be more convenient to use during development, but they provide no support for bundling, [due to lack of a standard way of specifying metadata](https://github.com/WICG/import-maps#supplying-out-of-band-metadata-for-each-module).  So link preload tags is the least cumbersome approach.  Don't forget to add the onerror attribute to the link tag.  And remember, if the use of the url won't come into play until well after the page has loaded, use some other value for rel (recommendation: "lazy", or just remove it completely).
+2.  If bundling can be accomplished, either during a build process, or dynamically by the server (again, with the help of an HTMLRewriter, w3c willing), the process that performs the (dynamic) bundling should add attribute "data-imported" to the link tag, which specifies the id of the template.  The process should also remove "rel=preload" if applicable.
 
 So basically:
 
@@ -124,7 +132,7 @@ So basically:
         as=fetch 
         href=https://cdn.jsdelivr.net/npm/xtal-side-nav@0.0.110/xtal-side-nav.html>
     ...
-    <template id=032c2e8a-36a7-4f9c-96a0-673cba30c142>
+    <template id=032c2e8a-36a7-4f9c-96a0-673cba30c142 be-a-beacon=#>
         <main part=main>
             <button disabled aria-label="Open Menu" part=opener class=opener>&#9776; <slot name=title></slot></button>
             <aside part=side-nav class=side-nav>
@@ -137,7 +145,9 @@ So basically:
 
 It may even be better to append (some of) the template(s) at the end of the body tag, if there are many many template imports.  If they are all front loaded in the head tag, it would mean delays before the user can see above the fold content.  
 
-What *be-written* does is search for the matching template by id.  If not found it waits for document loaded event (if applicable) in case the bundled content was added at the end of the document.  If at that time, it cannot locate the template, it logs an error.
+What *be-written* does is search for the matching template by id.  If not found, it waits for document loaded event (if applicable) in case the bundled content was added at the end of the document.  If at that time, it cannot locate the template, it logs an error.
+
+But notice the extra attribute:  be-a-beacon=#.  This causes the template to emit an event that be-written picks up the moment it is added to the DOM tree, so that the inclusion can happen prior to the full document loading, **if** the template is added outside any shadow DOM. [TODO] 
 
 [TODO]:  Support be-a-beacon for faster resolution time.
 
