@@ -92,6 +92,15 @@ The fact that the necessity for security dictates that we can't directly specify
 
 ### Bundling instructions
 
+There are two scenarios to consider when bundling -- a page only has one instance where it points to that url:
+
+```html
+<div be-written="html-spec/"></div>
+```
+
+In this case, the most effective way to bundle would be to do what this custom enhancement does, but during the build process.
+
+
 1.  If bundling support is needed (potentially), then you must adopt the link preload tag approach mentioned above. Import maps are also fine, and may be more convenient to use during development, but they provide no support for bundling, [due to lack of a standard way of specifying metadata](https://github.com/WICG/import-maps#supplying-out-of-band-metadata-for-each-module).  So link preload tags is the least cumbersome approach.  Don't forget to add the onerror attribute to the link tag.  And remember, if the use of the url won't come into play until well after the page has loaded, use some other value for rel (recommendation: "lazy", or just remove it completely).
 2.  If bundling can be accomplished, either during a build process, or dynamically by the server, the process that performs the bundling should add attribute "data-imported" to the link tag, which specifies the id of the template.  The process should also remove "rel=preload" if applicable.
 
@@ -128,7 +137,7 @@ So basically:
 
 It may even be better to append (some of) the template(s) at the end of the body tag, if there are many many template imports.  If they are all front loaded in the head tag, it would mean delays before the user can see above the fold content.  
 
-What *be-written* does is search for the matching template by id.  If not found, it waits for document loaded event (if applicable) in case the bundled content was added at the end of the document.  If at that time, it cannot locate the template, it logs an error.
+What *be-written* does is search for the matching template by id.  If not found it waits for document loaded event (if applicable) in case the bundled content was added at the end of the document.  If at that time, it cannot locate the template, it logs an error.
 
 [TODO]:  Support be-a-beacon for faster resolution time.
 
