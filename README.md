@@ -90,7 +90,7 @@ It seems likely, even with all the advances that HTTP/3 provides, that in cases 
 
 The fact that the necessity for security dictates that we can't directly specify the url of what we want to stream directly in the adorned element, actually can be viewed as a blessing in disguise when we consider how to bundle.  This is how bundling can work quite easily with be-written (but will require some custom solution for whatever build system you are adopting).
 
-### Bundling instructions
+### Bundling instructions [WIP]
 
 There are two scenarios to consider when bundling -- a page only has one instance where it points to that url:
 
@@ -106,7 +106,7 @@ However, because be-written does a bit more than simply blindly paste the full c
 
 *be-written* makes the commitment that if the platform decides to embrace all of humanity and fight global warming by endorsing [this proposal](https://github.com/whatwg/dom/issues/1222), *be-written*, in gratitude, will add a build plugin based on that API, that takes care of all that nuance, in order to achieve that optimal user experience (and I will also forever shut up about their lack of HTML love). I'm  sure that's precisely the incentive that will sway them to get cracking.   
 
-In the absence of such a plugin,  or if the page contains two or more references to the same reference, or if lazy loading is needed, then the instructions below seem to me to be more effective, and I think are probably also acceptable for a single instance:
+In the absence of such a plugin,  or if the page contains two or more references to the same reference, or if lazy loading is needed, then the instructions below seem to me to be more effective, and I think are probably also acceptable for a single instance as well:
 
 
 1.  You must adopt the link preload tag approach mentioned above. Import maps are also fine, and may be more convenient to use during development, but they provide no support for bundling, [due to lack of a standard way of specifying metadata](https://github.com/WICG/import-maps#supplying-out-of-band-metadata-for-each-module).  So link preload tags is the least cumbersome approach.  Don't forget to add the onerror attribute to the link tag.  And remember, if the use of the url won't come into play until well after the page has loaded, use some other value for rel (recommendation: "lazy", or just remove it completely).
@@ -148,6 +148,7 @@ So basically:
                     }
                 </script>
             </template>
+        </xtal-side-nav>
     </template>
 </head>
 ```
