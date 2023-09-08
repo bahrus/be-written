@@ -1,4 +1,4 @@
-# be-written
+# be-written [WIP]
 
 [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/be-written)
 [![NPM version](https://badge.fury.io/js/be-written.png)](http://badge.fury.io/js/be-written)
