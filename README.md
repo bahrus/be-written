@@ -106,7 +106,7 @@ However, because be-written does a bit more than simply blindly paste the full c
 
 *be-written* makes the commitment that if the platform decides to embrace all of humanity and fight global warming by endorsing [this proposal](https://github.com/whatwg/dom/issues/1222), *be-written*, in gratitude, will add a build plugin based on that API, that takes care of all that nuance, in order to achieve that optimal user experience (and I will also forever shut up about their lack of HTML love). I'm  sure that's precisely the incentive that will sway them to get cracking.   
 
-In the absence of such a plugin,  or if the page contains two or more references to the same reference, or if lazy loading is needed then the instructions below seem to me to be more effective:
+In the absence of such a plugin,  or if the page contains two or more references to the same reference, or if lazy loading is needed, then the instructions below seem to me to be more effective, and I think are probably also acceptable for a single instance:
 
 
 1.  You must adopt the link preload tag approach mentioned above. Import maps are also fine, and may be more convenient to use during development, but they provide no support for bundling, [due to lack of a standard way of specifying metadata](https://github.com/WICG/import-maps#supplying-out-of-band-metadata-for-each-module).  So link preload tags is the least cumbersome approach.  Don't forget to add the onerror attribute to the link tag.  And remember, if the use of the url won't come into play until well after the page has loaded, use some other value for rel (recommendation: "lazy", or just remove it completely).
@@ -130,15 +130,24 @@ So basically:
         data-imported=032c2e8a-36a7-4f9c-96a0-673cba30c142 
         onerror=console.error(href)
         as=fetch 
-        href=https://cdn.jsdelivr.net/npm/xtal-side-nav@0.0.110/xtal-side-nav.html>
+        href=https://cdn.jsdelivr.net/npm/xtal-side-nav@0.0.113/root.html>
     ...
     <template id=032c2e8a-36a7-4f9c-96a0-673cba30c142 be-a-beacon=#>
-        <main part=main>
-            <button disabled aria-label="Open Menu" part=opener class=opener>&#9776; <slot name=title></slot></button>
-            <aside part=side-nav class=side-nav>
-                ...
-            </aside>
-        </main>
+        <xtal-side-nav>
+            <template shadowrootmode="open"><!--begin--><!--begin-->
+            ...
+                <!--end--><!--end--></template>
+                </xtal-side-nav>
+
+                <script type=module>
+                    if(customElements.get('be-importing') === undefined){
+                        import('be-importing/be-importing.js').catch(err => {
+                            console.debug(err);
+                            import('https://esm.run/be-importing@0.0.64');
+                        });
+                    }
+                </script>
+            </template>
     </template>
 </head>
 ```
@@ -148,8 +157,6 @@ It may even be better to append (some of) the template(s) at the end of the body
 What *be-written* does is search for the matching template by id.  If not found, it waits for document loaded event (if applicable) in case the bundled content was added at the end of the document.  If at that time, it cannot locate the template, it logs an error.
 
 But notice the extra attribute:  be-a-beacon=#.  This causes the template to emit an event that be-written picks up the moment it is added to the DOM tree, so that the inclusion can happen prior to the full document loading, **if** the template is added outside any shadow DOM. [TODO] 
-
-[TODO]:  Support be-a-beacon for faster resolution time.
 
 > [!NOTE]
 > This web component is a member of the [be-enhanced](https://github.com/bahrus/be-enhanced) family of [custom enhancements](https://github.com/WICG/webcomponents/issues/1000).  As such, it can also become active during [template instantiation](https://github.com/bahrus/trans-render#extending-tr-dtr-horizontally), though my head spins even thinking about it.
@@ -170,7 +177,8 @@ But notice the extra attribute:  be-a-beacon=#.  This causes the template to emi
 > [!NOTE]
 > For importing HTML optimized for HTML-first web components, see [be-importing](https://github.com/bahrus/be-importing).
 
-> [!NOTE]:  To be HTML5 compliant, use data-enh-by-be-written for the attribute name instead [Untested].
+> [!NOTE]
+> To be HTML5 compliant, use data-enh-by-be-written for the attribute name instead [Untested].
 
 
 ## With Shadow DOM
