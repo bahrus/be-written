@@ -2,7 +2,6 @@ import {BE, propDefaults, propInfo} from 'be-enhanced/BE.js';
 import {BEConfig} from 'be-enhanced/types';
 import {XE} from 'xtal-element/XE.js';
 import {Actions, AllProps, AP, PAP, ProPAP, POA} from './types';
-import {register} from 'be-hive/register.js';
 import { StreamOrator } from 'stream-orator/StreamOrator.js';
 import {EndUserProps as BeBasedEndUserProps} from 'be-based/types';
 import {Action} from 'trans-render/lib/types';
@@ -139,9 +138,8 @@ const lowerCaseRe = /^[a-zA-Z]/;
 
 const alreadyRequested = new Set<string>();
 
-const tagName = 'be-written';
-const ifWantsToBe = 'written';
-const upgrade = '*';
+export const tagName = 'be-written';
+
 
 export const beWrittenPropDefaults: Partial<AP> = {
     to: '.',
@@ -173,5 +171,3 @@ const xe = new XE<AP, Actions>({
     },
     superclass: BeWritten
 });
-
-register(ifWantsToBe, upgrade, tagName);

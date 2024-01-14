@@ -8,7 +8,7 @@
 		"strict": true,
 	},
 	"files":[
-		"be-written.ts"
+		"behivior.ts"
 	],
 	"exclude":[
 		"node_modules"
