@@ -1,9 +1,9 @@
 import { ActionOnEventConfigs } from "trans-render/froop/types";
-import {IBE} from 'be-enhanced/types';
+import {IEnhancement} from 'trans-render/be/types';
 import {EndUserProps as BeBasedEndUserProps} from 'be-based/types';
 import {Inserts} from 'stream-orator/types';
 
-export interface EndUserProps extends IBE{
+export interface EndUserProps extends IEnhancement{
     from?: string,
     to?: string,
     shadowRootMode?: 'open' | 'closed'

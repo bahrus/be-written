@@ -1,29 +1,19 @@
-import {config as beCnfg} from 'be-enhanced/config.js';
-import {BE, BEConfig} from 'be-enhanced/BE.js';
-import {Actions, AllProps, AP, PAP, ProPAP} from './types';
-import { Positractions, PropInfo } from 'trans-render/froop/types';
-import {IEnhancement,  BEAllProps} from 'trans-render/be/types';
+import {BE, propDefaults, propInfo} from 'be-enhanced/BE.js';
+import {BEConfig} from 'be-enhanced/types';
+import {XE} from 'xtal-element/XE.js';
+import {Actions, AllProps, AP, PAP, ProPAP, POA} from '../types';
 import { StreamOrator } from 'stream-orator/StreamOrator.js';
 import {EndUserProps as BeBasedEndUserProps} from 'be-based/types';
+import {Action} from 'trans-render/lib/types';
 
-
-export class BeWritten extends BE implements Actions{
-    static override config: BEConfig<AP & BEAllProps, Actions & IEnhancement, any> = {
-        propDefaults:{
-            to: '.',
-            beBased: true,
-            beOosoom: '!defer'
-        },
-        propInfo:{
-            ...beCnfg.propInfo as Partial<{[key in keyof AP]: PropInfo}>,
-        },
-        actions:{
-            write: {
-                ifAllOf: ['from', 'to'],
-                ifNoneOf: ['defer']
-            }
-        }
+export class BeWritten extends BE<AP, Actions> implements Actions{
+    static  override get beConfig(){
+        return {
+            parse: true,
+            primaryProp: 'from'
+        } as BEConfig
     }
+
     //provide hooks for extending decorators like BeRewritten, BeImporting
     async getSet(self: this, so: StreamOrator, target: Element){}
 
@@ -74,11 +64,11 @@ export class BeWritten extends BE implements Actions{
         }
         const {resolve} = await import('trans-render/lib/resolve.js');
         let finalURL = resolve(from!);
-        import('be-a-beacon/behivior.js');
+        import('be-a-beacon/be-a-beacon.js');
         if(beBased !== undefined){
-            const {emc}  = await import('be-based/behivior.js');
-            
-            const base = (<any>enhancedElement).beEnhanced.whenResolved(emc);
+            import('be-based/be-based.js');
+            await customElements.whenDefined('be-based');
+            const base = (<any>enhancedElement).beEnhanced.by.beBased;
             //const {attach} = await import('be-decorated/upgrade.js');
             const beBasedEndUserProps = (typeof beBased === 'boolean' ? {} : beBased) as BeBasedEndUserProps;
             let bestGuessAtWhatBaseShouldBe = finalURL!;
@@ -141,8 +131,43 @@ export class BeWritten extends BE implements Actions{
     }
 }
 
-export interface BeWritten extends AP{}
+export interface BeWritten extends AllProps{}
+
 
 const lowerCaseRe = /^[a-zA-Z]/;
 
 const alreadyRequested = new Set<string>();
+
+export const tagName = 'be-written';
+
+
+export const beWrittenPropDefaults: Partial<AP> = {
+    to: '.',
+    beBased: true,
+    beOosoom: '!defer'
+};
+
+export const BeWrittenActions = {
+    write: {
+        ifAllOf: ['from', 'to'],
+        ifNoneOf: ['defer']
+    }
+} as Partial<{[key in keyof Actions]: Action | keyof AP}>;
+
+
+const xe = new XE<AP, Actions>({
+    config: {
+        tagName,
+        propDefaults: {
+            ...propDefaults,
+            ...beWrittenPropDefaults
+        },
+        propInfo: {
+            ...propInfo
+        },
+        actions: {
+            ...BeWrittenActions,
+        }
+    },
+    superclass: BeWritten
+});

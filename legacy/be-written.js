@@ -1,22 +1,12 @@
-import { config as beCnfg } from 'be-enhanced/config.js';
-import { BE } from 'be-enhanced/BE.js';
+import { BE, propDefaults, propInfo } from 'be-enhanced/BE.js';
+import { XE } from 'xtal-element/XE.js';
 export class BeWritten extends BE {
-    static config = {
-        propDefaults: {
-            to: '.',
-            beBased: true,
-            beOosoom: '!defer'
-        },
-        propInfo: {
-            ...beCnfg.propInfo,
-        },
-        actions: {
-            write: {
-                ifAllOf: ['from', 'to'],
-                ifNoneOf: ['defer']
-            }
-        }
-    };
+    static get beConfig() {
+        return {
+            parse: true,
+            primaryProp: 'from'
+        };
+    }
     //provide hooks for extending decorators like BeRewritten, BeImporting
     async getSet(self, so, target) { }
     async write(self) {
@@ -63,10 +53,11 @@ export class BeWritten extends BE {
         }
         const { resolve } = await import('trans-render/lib/resolve.js');
         let finalURL = resolve(from);
-        import('be-a-beacon/behivior.js');
+        import('be-a-beacon/be-a-beacon.js');
         if (beBased !== undefined) {
-            const { emc } = await import('be-based/behivior.js');
-            const base = enhancedElement.beEnhanced.whenResolved(emc);
+            import('be-based/be-based.js');
+            await customElements.whenDefined('be-based');
+            const base = enhancedElement.beEnhanced.by.beBased;
             //const {attach} = await import('be-decorated/upgrade.js');
             const beBasedEndUserProps = (typeof beBased === 'boolean' ? {} : beBased);
             let bestGuessAtWhatBaseShouldBe = finalURL;
@@ -127,3 +118,31 @@ export class BeWritten extends BE {
 }
 const lowerCaseRe = /^[a-zA-Z]/;
 const alreadyRequested = new Set();
+export const tagName = 'be-written';
+export const beWrittenPropDefaults = {
+    to: '.',
+    beBased: true,
+    beOosoom: '!defer'
+};
+export const BeWrittenActions = {
+    write: {
+        ifAllOf: ['from', 'to'],
+        ifNoneOf: ['defer']
+    }
+};
+const xe = new XE({
+    config: {
+        tagName,
+        propDefaults: {
+            ...propDefaults,
+            ...beWrittenPropDefaults
+        },
+        propInfo: {
+            ...propInfo
+        },
+        actions: {
+            ...BeWrittenActions,
+        }
+    },
+    superclass: BeWritten
+});
