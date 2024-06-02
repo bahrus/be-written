@@ -9,6 +9,7 @@ export class BeWritten extends BE {
         },
         propInfo: {
             ...beCnfg.propInfo,
+            from: {},
         },
         actions: {
             write: {
@@ -66,7 +67,7 @@ export class BeWritten extends BE {
         import('be-a-beacon/behivior.js');
         if (beBased !== undefined) {
             const { emc } = await import('be-based/behivior.js');
-            const base = enhancedElement.beEnhanced.whenResolved(emc);
+            const base = target.beEnhanced.whenResolved(emc);
             //const {attach} = await import('be-decorated/upgrade.js');
             const beBasedEndUserProps = (typeof beBased === 'boolean' ? {} : beBased);
             let bestGuessAtWhatBaseShouldBe = finalURL;

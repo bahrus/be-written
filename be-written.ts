@@ -16,6 +16,7 @@ export class BeWritten extends BE implements Actions{
         },
         propInfo:{
             ...beCnfg.propInfo as Partial<{[key in keyof AP]: PropInfo}>,
+            from:{},
         },
         actions:{
             write: {
@@ -78,7 +79,7 @@ export class BeWritten extends BE implements Actions{
         if(beBased !== undefined){
             const {emc}  = await import('be-based/behivior.js');
             
-            const base = (<any>enhancedElement).beEnhanced.whenResolved(emc);
+            const base = (<any>target).beEnhanced.whenResolved(emc);
             //const {attach} = await import('be-decorated/upgrade.js');
             const beBasedEndUserProps = (typeof beBased === 'boolean' ? {} : beBased) as BeBasedEndUserProps;
             let bestGuessAtWhatBaseShouldBe = finalURL!;
@@ -121,7 +122,7 @@ export class BeWritten extends BE implements Actions{
             enhancedElement.classList.remove('be-written-in-progress');
         }
         if(beBased){
-            (<any>target).beEnhanced.beBased.disconnect();
+            (<any>target).beEnhanced.beBased.disconnect(target);
         }
         return {
             resolved: true,

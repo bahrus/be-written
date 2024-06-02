@@ -28,9 +28,9 @@
   },
   "dependencies": {
     "be-a-beacon": "0.0.56",
-    "be-based": "0.0.63",
-    "be-enhanced": "0.0.95",
-    "be-hive": "0.0.168",
+    "be-based": "0.0.64",
+    "be-enhanced": "0.0.96",
+    "be-hive": "0.0.169",
     "stream-orator": "0.0.22",
     "trans-render": "0.0.778"
   },

@@ -7,21 +7,24 @@
     <title>Document</title>
 </head>
 <body>
-    <div be-written=blah.html></div>
+    <div be-written=blah></div>
     <script type=importmap>
         {
             "imports": {
-                "trans-render/": "../node_modules/trans-render/",
-                "xtal-element/": "../node_modules/xtal-element/",
-                "be-based/": "../node_modules/be-based/",
-                "be-decorated/": "../node_modules/be-decorated/",
-                "be-hive/":  "../node_modules/be-hive/",
-                "stream-orator/": "../node_modules/stream-orator/"
+                "be-a-beacon/": "/node_modules/be-a-beacon/",
+                "be-based/": "/node_modules/be-based/",
+                "be-enhanced/": "/node_modules/be-enhanced/",
+                "be-hive/":  "/node_modules/be-hive/",
+                "mount-observer/": "/node_modules/mount-observer/",
+                "stream-orator/": "/node_modules/stream-orator/",
+                "trans-render/": "/node_modules/trans-render/",
+                "xtal-element/": "/node_modules/xtal-element/",
+                "blah": "./blah.html"
             }
         }
     </script>
     <script type=module>
-        import '../be-written.js';
+        import '/behivior.js';
     </script>
 </body>
 </html>
