@@ -7,7 +7,7 @@ import { StreamOrator } from 'stream-orator/StreamOrator.js';
 import {EndUserProps as BeBasedEndUserProps} from 'be-based/types';
 
 
-export class BeWritten extends BE implements Actions{
+class BeWritten extends BE implements Actions{
     static override config: BEConfig<AP & BEAllProps, Actions & IEnhancement, any> = {
         propDefaults:{
             to: '.',
@@ -142,8 +142,12 @@ export class BeWritten extends BE implements Actions{
     }
 }
 
-export interface BeWritten extends AP{}
+interface BeWritten extends AP{}
+
+await BeWritten.bootUp();
 
 const lowerCaseRe = /^[a-zA-Z]/;
 
 const alreadyRequested = new Set<string>();
+
+export {BeWritten}

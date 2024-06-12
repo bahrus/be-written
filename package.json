@@ -27,12 +27,12 @@
     "update": "ncu -u && npm install"
   },
   "dependencies": {
-    "be-a-beacon": "0.0.56",
-    "be-based": "0.0.64",
-    "be-enhanced": "0.0.96",
-    "be-hive": "0.0.169",
+    "be-a-beacon": "0.0.64",
+    "be-based": "0.0.65",
+    "be-enhanced": "0.0.100",
+    "be-hive": "0.0.178",
     "stream-orator": "0.0.22",
-    "trans-render": "0.0.778"
+    "trans-render": "0.0.781"
   },
   "devDependencies": {
     "may-it-serve": "0.0.6",

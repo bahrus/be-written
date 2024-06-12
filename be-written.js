@@ -1,6 +1,6 @@
 import { config as beCnfg } from 'be-enhanced/config.js';
 import { BE } from 'be-enhanced/BE.js';
-export class BeWritten extends BE {
+class BeWritten extends BE {
     static config = {
         propDefaults: {
             to: '.',
@@ -109,7 +109,7 @@ export class BeWritten extends BE {
             enhancedElement.classList.remove('be-written-in-progress');
         }
         if (beBased) {
-            target.beEnhanced.beBased.disconnect();
+            target.beEnhanced.beBased.disconnect(target);
         }
         return {
             resolved: true,
@@ -126,5 +126,7 @@ export class BeWritten extends BE {
         return false;
     }
 }
+await BeWritten.bootUp();
 const lowerCaseRe = /^[a-zA-Z]/;
 const alreadyRequested = new Set();
+export { BeWritten };

@@ -8,7 +8,7 @@ export const emc = {
     },
     enhPropKey: 'beWritten',
     importEnh: async () => {
-        const { BeWritten } = await import('./behance.js');
+        const { BeWritten } = await import('./be-written.js');
         return BeWritten;
     }
 };
