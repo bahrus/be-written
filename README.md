@@ -15,7 +15,7 @@ In the year 2022/5783/Tiger/2076/2014/47, all browsers have become [stream capab
 ## Syntax
 
 ```html
-<div be-written=https://html.spec.whatwg.org></div>
+<div 📜=https://html.spec.whatwg.org></div>
 ```
 
 ... streams the contents of https://html.spec.whatwg.org into the div (well, see below for one significant caveat).
