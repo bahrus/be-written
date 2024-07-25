@@ -63,7 +63,7 @@ To make it work, do one of the following:
     </script>
 </head>
 ...
-<div be-written="html-spec/"></div>
+<div 📜="html-spec/"></div>
 ```
 
 and/or:
@@ -79,7 +79,7 @@ and/or:
     >
 </head>
 ...
-<div be-written=html-spec></div>
+<div 📜=html-spec></div>
 ```
 
 What goes inside the onerror attribute, if anything, is entirely up to each application/developer.  But the presence of the onerror attribute is required to unlock the capability of being streamed into the browser.
@@ -95,14 +95,14 @@ The fact that the necessity for security dictates that we can't directly specify
 There are two scenarios to consider when bundling -- a page only has one instance where it points to that url:
 
 ```html
-<div be-written="html-spec/"></div>
+<div 📜="html-spec/"></div>
 ```
 
 vs lots of instances.  
 
-In the former case, the most effective way to bundle may be to do what this custom enhancement does, but during the build process -- essentially, copy and paste the contents of the resource inside the tag.  In that scenario, might as well remove the be-written attribute during the build process, so that this enhancement can go fishing for the weekend.
+In the former case, the most effective way to bundle may be to do what this custom enhancement does, but during the build process -- essentially, copy and paste the contents of the resource inside the tag.  In that scenario, might as well remove the *be-written* or 📜 attribute during the build process, so that this enhancement can go fishing for the weekend.
 
-However, because be-written does a bit more than simply blindly paste the full contents of the resource into the tag (such as support snipping the contents and other things described in the rest of this document), some attention should be applied to get an exact duplicate of functionality. 
+However, because *be-written* does a bit more than simply blindly paste the full contents of the resource into the tag (such as support snipping the contents and other things described in the rest of this document), some attention should be applied to get an exact duplicate of functionality. 
 
 *be-written* makes the commitment that if the platform decides to embrace all of humanity and fight global warming by endorsing [this proposal](https://github.com/whatwg/dom/issues/1222), *be-written*, in gratitude, will add a build plugin based on that API, that takes care of all that nuance, in order to achieve that optimal user experience (and I will also forever shut up about their lack of HTML love). I'm  sure that's precisely the incentive that will sway them to get cracking.   
 
@@ -157,7 +157,7 @@ It may even be better to append (some of) the template(s) at the end of the body
 
 What *be-written* does is search for the matching template by id.  If not found, it waits for document loaded event (if applicable) in case the bundled content was added at the end of the document.  If at that time, it cannot locate the template, it logs an error.
 
-But notice the extra attribute:  be-a-beacon=#.  This causes the template to emit an event that be-written picks up the moment it is added to the DOM tree, so that the inclusion can happen prior to the full document loading, **if** the template is added outside any shadow DOM. [TODO] 
+But notice the extra attribute:  be-a-beacon=#.  This causes the template to emit an event that *be-written* picks up the moment it is added to the DOM tree, so that the inclusion can happen prior to the full document loading, **if** the template is added outside any shadow DOM. [TODO] 
 
 > [!NOTE]
 > This web component is a member of the [be-enhanced](https://github.com/bahrus/be-enhanced) family of [custom enhancements](https://github.com/WICG/webcomponents/issues/1000).  As such, it can also become active during [template instantiation](https://github.com/bahrus/trans-render#extending-tr-dtr-horizontally), though my head spins even thinking about it.
@@ -179,13 +179,13 @@ But notice the extra attribute:  be-a-beacon=#.  This causes the template to emi
 > For importing HTML optimized for HTML-first web components, see [be-importing](https://github.com/bahrus/be-importing).
 
 > [!NOTE]
-> To be HTML5 compliant, use data-enh-by-be-written for the attribute name instead [Untested].
+> To be HTML5 compliant, use data-enh-be-written for the attribute name instead [Untested].
 
 
 ## With Shadow DOM
 
 ```html
-<details be-written='{
+<details 📜='{
     "from": "https://html.spec.whatwg.org/",
     "to": "div",
     "shadowRootMode": "open"
@@ -225,7 +225,7 @@ Also as mentioned earlier, *be-written* supports rudimentary url substitution ba
         "xtal-side-nav/": "https://cdn.jsdelivr.net/npm/xtal-side-nav@0.0.104/"
     }
 }</script>
-<xtal-side-nav be-written=xtal-side-nav/xtal-side-nav.html></xtal-side-nav>
+<xtal-side-nav 📜=xtal-side-nav/xtal-side-nav.html></xtal-side-nav>
 
 ```
 
@@ -245,7 +245,7 @@ Conceptually, such inserts would look as follows:
 
 
 ```html
-<div be-written='{
+<div 📜='{
     "from": "blah.html",
     "inserts": {
         "before": "<div>before</div>",
@@ -265,7 +265,7 @@ When the streaming has finished, the element adorned by the be-written decorator
 For lazy loading, set "defer" to true, and adorn the element with the [be-oosoom](https://github.com/bahrus/be-oosoom) attribute:
 
 ```html
-<div be-oosoom be-written='{
+<div be-oosoom 📜='{
     "from": "https://html.spec.whatwg.org/",
     "defer": true
 }'></div>
