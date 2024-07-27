@@ -1,7 +1,6 @@
-import { ActionOnEventConfigs } from "trans-render/froop/types";
-import {IEnhancement} from 'trans-render/be/types';
-import {EndUserProps as BeBasedEndUserProps} from 'be-based/types';
-import {Inserts} from 'stream-orator/types';
+import {IEnhancement, BEAllProps} from './node_modules/trans-render/be/types';
+import {EndUserProps as BeBasedEndUserProps} from './node_modules/be-based/types';
+import {Inserts} from './node_modules/stream-orator/types';
 
 export interface EndUserProps extends IEnhancement{
     from?: string,
@@ -19,7 +18,8 @@ export interface EndUserProps extends IEnhancement{
 }
 
 export interface AllProps extends EndUserProps{
-
+    to: string,
+    from: string,
 }
 
 export interface AllProps extends EndUserProps {}
@@ -30,8 +30,7 @@ export type PAP = Partial<AP>;
 
 export type ProPAP = Promise<PAP>;
 
-export type POA = [PAP | undefined, ActionOnEventConfigs<PAP, Actions>];
 
 export interface Actions{
-    write(self: this): ProPAP;
+    write(self: AP & BEAllProps): ProPAP;
 }

@@ -1,6 +1,17 @@
+// @ts-check
 import { config as beCnfg } from 'be-enhanced/config.js';
 import { BE } from 'be-enhanced/BE.js';
+/** @import {BEConfig} from './node_modules/be-enhanced/types.d.ts' */
+/** @import {Actions, PAP, AllProps, AP} from './types.d.ts' */;
+/** @import {IEnhancement,  BEAllProps} from './node_modules/trans-render/be/types.d.ts' */;
+
+/**
+ * @implements {Actions}
+ */
 class BeWritten extends BE {
+    /**
+     * @type {BEConfig<AP & BEAllProps, Actions & IEnhancement, any>}
+     */
     static config = {
         propDefaults: {
             to: '.',
@@ -20,6 +31,12 @@ class BeWritten extends BE {
     };
     //provide hooks for extending decorators like BeRewritten, BeImporting
     async getSet(self, so, target) { }
+
+    /**
+     * 
+     * @param {AP & BEAllProps} self 
+     * @returns 
+     */
     async write(self) {
         const { enhancedElement, shadowRootMode, from, to, reqInit, wrapper, beBased, inProgressCss, inserts, between, once } = self;
         if (once) {
@@ -30,10 +47,11 @@ class BeWritten extends BE {
             }
             alreadyRequested.add(from);
         }
-        let target = enhancedElement;
+        let target = /** @type {HTMLElement | null} */ (enhancedElement);
         if (to !== '.') {
             target = enhancedElement.querySelector(to);
         }
+        if(target === null) throw 404;
         if (shadowRootMode !== undefined && target.shadowRoot === null) {
             target.attachShadow({ mode: shadowRootMode });
         }
