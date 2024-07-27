@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "be-a-beacon": "0.0.65",
-    "be-based": "0.0.66",
+    "be-based": "0.0.67",
     "be-enhanced": "0.0.114",
     "be-hive": "0.0.195",
     "stream-orator": "0.0.22",
