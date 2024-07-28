@@ -28,11 +28,11 @@
   },
   "dependencies": {
     "be-a-beacon": "0.0.66",
-    "be-based": "0.0.68",
-    "be-enhanced": "0.0.116",
-    "be-hive": "0.0.196",
+    "be-based": "0.0.69",
+    "be-enhanced": "0.0.117",
+    "be-hive": "0.0.197",
     "stream-orator": "0.0.22",
-    "trans-render": "0.0.803"
+    "trans-render": "0.0.804"
   },
   "devDependencies": {
     "may-it-serve": "0.0.8",
