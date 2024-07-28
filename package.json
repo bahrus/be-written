@@ -1,6 +1,6 @@
 {
   "name": "be-written",
-  "version": "0.0.52",
+  "version": "0.0.53",
   "description": "Stream a url to a target element, declaratively.",
   "main": "be-written.js",
   "module": "be-written.js",
