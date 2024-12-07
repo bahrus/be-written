@@ -111,7 +111,7 @@ The onerror code above will become useless when "minimal" security constraints a
 
 (or the equivalent with http headers.)
 
-This enhancement doesn't actually check for the attribute to be present.  It checks that the onerror property is a function [TODO].  So to do that, you need to do something like:
+This enhancement doesn't actually check for the attribute to be present.  It checks that the onerror property is a function.  So to do that, you need to do something like:
 
 ```html
 <link
@@ -188,7 +188,7 @@ It may even be better to append (some of) the template(s) at the end of the body
 
 What *be-written* does is search for the matching template by id.  If not found, it waits for document loaded event (if applicable) in case the bundled content was added at the end of the document.  If at that time, it cannot locate the template, it logs an error.
 
-But notice the extra attribute:  be-a-beacon=#.  This causes the template to emit an event that *be-written* picks up the moment it is added to the DOM tree, so that the inclusion can happen prior to the full document loading, **if** the template is added outside any shadow DOM. [TODO] 
+But notice the extra attribute:  be-a-beacon=#.  [This](https://github.com/bahrus/be-a-beacon) causes the template to emit an event that *be-written* picks up the moment it is added to the DOM tree, so that the inclusion can happen prior to the full document loading, **if** the template is added outside any shadow DOM.
 
 > [!NOTE]
 > This web component is a member of the [be-enhanced](https://github.com/bahrus/be-enhanced) family of [custom enhancements](https://github.com/WICG/webcomponents/issues/1000).  As such, it can also become active during [template instantiation](https://github.com/bahrus/trans-render#extending-tr-dtr-horizontally), though my head spins even thinking about it.
