@@ -145,7 +145,7 @@ vs lots of instances.
 
 In the former case, the most effective way to bundle may be to do what this custom enhancement does, but during the build process -- essentially, copy and paste the contents of the resource inside the tag.  In that scenario, might as well remove the *be-written* or 📜 attribute during the build process, so that this enhancement can go fishing for the weekend.
 
-However, because *be-written* does a bit more than simply blindly paste the full contents of the resource into the tag (such as support snipping the contents and other things described in the rest of this document), some attention should be applied to get an exact duplicate of functionality. 
+However, because *be-written* does a bit more than simply blindly paste the full contents of the resource into the tag (such as support for snipping the contents and other things described in the rest of this document), some attention should be applied to get an exact duplicate of functionality. 
 
 *be-written* makes the commitment that if the platform decides to embrace all of humanity and fight global warming by endorsing [this proposal](https://github.com/whatwg/dom/issues/1222), *be-written*, in gratitude, will add a build plugin based on that API, that takes care of all that nuance, in order to achieve that optimal user experience (and I will also forever shut up about their lack of HTML love). I'm  sure that's precisely the incentive that will sway them to get cracking.   
 
@@ -160,7 +160,7 @@ So basically:
 ```html
 <link id=xtal-side-nav/xtal-side-nav.html 
     rel=preload as=fetch href=https://cdn.jsdelivr.net/npm/xtal-side-nav@0.0.110/xtal-side-nav.html 
-    onerror=console.error(href)>
+>
 ```
 
 ...becomes, during the build / server rendering process:
@@ -171,7 +171,6 @@ So basically:
     ...
     <link id=xtal-side-nav/xtal-side-nav.html 
         data-imported=032c2e8a-36a7-4f9c-96a0-673cba30c142 
-        onerror=console.error(href)
         as=fetch 
         href=https://cdn.jsdelivr.net/npm/xtal-side-nav@0.0.113/root.html>
     ...
@@ -179,17 +178,6 @@ So basically:
         <xtal-side-nav>
             <template shadowrootmode="open"><!--begin--><!--begin-->
             ...
-                <!--end--><!--end--></template>
-                </xtal-side-nav>
-
-                <script type=module>
-                    if(customElements.get('be-importing') === undefined){
-                        import('be-importing/be-importing.js').catch(err => {
-                            console.debug(err);
-                            import('https://esm.run/be-importing@0.0.64');
-                        });
-                    }
-                </script>
             </template>
         </xtal-side-nav>
     </template>
@@ -200,7 +188,7 @@ It may even be better to append (some of) the template(s) at the end of the body
 
 What *be-written* does is search for the matching template by id.  If not found, it waits for document loaded event (if applicable) in case the bundled content was added at the end of the document.  If at that time, it cannot locate the template, it logs an error.
 
-But notice the extra attribute:  be-a-beacon=#.  This causes the template to emit an event that *be-written* picks up the moment it is added to the DOM tree, so that the inclusion can happen prior to the full document loading, **if** the template is added outside any shadow DOM. [TODO] 
+But notice the extra attribute:  be-a-beacon=#.  [This](https://github.com/bahrus/be-a-beacon) causes the template to emit an event that *be-written* picks up the moment it is added to the DOM tree, so that the inclusion can happen prior to the full document loading, **if** the template is added outside any shadow DOM. [TODO] 
 
 > [!NOTE]
 > This web component is a member of the [be-enhanced](https://github.com/bahrus/be-enhanced) family of [custom enhancements](https://github.com/WICG/webcomponents/issues/1000).  As such, it can also become active during [template instantiation](https://github.com/bahrus/trans-render#extending-tr-dtr-horizontally), though my head spins even thinking about it.
@@ -256,7 +244,7 @@ It is crude because the way the text streams, it is possible that the sought aft
 
 ## URL Mapping via link preload tags
 
-As alluded to earlier, the "from" parameter can also be the id of a link tag.  If that is the case, the url that is fetched comes from the href property of the link tag.  But remember, the link tag requires having an onerror attribute present to ensure it has been given the green light by the site.
+As alluded to earlier, the "from" parameter can also be the id of a link tag.  If that is the case, the url that is fetched comes from the href property of the link tag.  But remember, the link tag requires having an onerror property that is a function [TODO] present to ensure it has been given the green light by the site.
 
 ## Support for import maps
 
@@ -316,15 +304,16 @@ For lazy loading, set "defer" to true, and adorn the element with the [be-oosoom
 
 ## Viewing Locally
 
-Any web server that can serve static html files will do, but...
+Any web server that can serve static html files with server-side includes will do, but...
 
 1.  Install git.
 2.  Fork/clone this repo.
 3.  Install node.
-4.  Open command window to folder where you cloned this repo.
-5.  > npm install
-6.  > npm run serve
-7.  Open http://localhost:3030/demo/dev in a modern browser.
+4.  Install Python 3 or later.
+5.  Open command window to folder where you cloned this repo.
+6.  > npm install
+7.  > npm run serve
+8.  Open http://localhost:8000/demo in a modern browser.
 
 ## Importing in ES Modules:
 
