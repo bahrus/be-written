@@ -22,21 +22,21 @@
   "types": "types.d.ts",
   "scripts": {
     "test": "playwright test",
-    "serve": "node node_modules/may-it-serve/serve.js",
+    "serve": "python3 ./node_modules/ssi-server/ssi_server.py",
     "safari": "npx playwright wk http://localhost:3030",
     "update": "ncu -u && npm install"
   },
   "dependencies": {
-    "be-a-beacon": "0.0.66",
+    "be-a-beacon": "0.0.69",
     "be-based": "0.0.70",
-    "be-enhanced": "0.0.118",
-    "be-hive": "0.0.198",
-    "stream-orator": "0.0.22",
-    "trans-render": "0.0.805"
+    "be-enhanced": "0.0.156",
+    "be-hive": "0.0.236",
+    "stream-orator": "0.0.24",
+    "trans-render": "0.0.864"
   },
   "devDependencies": {
-    "may-it-serve": "0.0.8",
-    "@playwright/test": "1.45.3"
+    "ssi-server": "0.0.1",
+    "@playwright/test": "1.49.0"
   },
   "repository": {
     "type": "git",
