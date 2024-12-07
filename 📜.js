@@ -1,7 +1,7 @@
 // @ts-check
 import { MountObserver, seed, BeHive } from 'be-hive/be-hive.js';
-import { emc as baseEMC } from './behivior.js';
-/** @import {EMC} from './node_modules/trans-render/be/types.d.ts' */
+import { emc as baseEMC } from './emc.js';
+/** @import  {EMC} from './ts-refs/trans-render/be/types' */;
 /**
  * @type {EMC}
  */
