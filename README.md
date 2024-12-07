@@ -84,6 +84,49 @@ and/or:
 
 What goes inside the onerror attribute, if anything, is entirely up to each application/developer.  But the presence of the onerror attribute is required to unlock the capability of being streamed into the browser.
 
+Now, the knowledgeable web developer (i.e. someone who knows more than I did a few months back) will be wondering about this recommendation:
+
+```html
+<link
+    id="html-spec" 
+    rel=preload 
+    as=fetch 
+    href="https://html.spec.whatwg.org/" 
+    onerror="console.error(href)"
+>
+```
+
+Aren't the security experts pushing us away from using inline event handlers?  Right you are (sigh).
+
+The onerror code above will become useless when "minimal" security constraints are applied, for example, something like:
+
+```html
+<html>
+    <head>
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; img-src 'self'; script-src 'sha256-M3+WsGaapB2xIRDxGoERbb4Yxbki1zY1qhapQSYBte0=';">
+    </head>
+...
+</html>
+```
+
+(or the equivalent with http headers.)
+
+This enhancement doesn't just check for the attribute to be present.  It checks that the onerror property is a function [TODO].  So to do that, you need to do something like:
+
+```html
+<link
+    id="html-spec" 
+    rel=preload 
+    as=fetch 
+    href="https://html.spec.whatwg.org/" 
+>
+<script>
+    document.currentScript.previousElementSibling.onerror = event => {
+            console.log({event});
+    }
+</script>
+```
+
 ## Support for bundling
 
 It seems likely, even with all the advances that HTTP/3 provides, that in cases where most of the users are hit-and-run type visitors, some amount of bundling would be beneficial when it comes time to deploy to production.  Or maybe it is a bit difficult to say which is better - bundling or no bundling, so switching back and forth seamlessly is of upmost importance.
