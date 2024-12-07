@@ -56,15 +56,20 @@ class BeWritten extends BE {
         }
         //look for bundling.  If bundled, we can assume all the links have been properly adjusted.
         const linkTest = globalThis[from];
-        if (linkTest instanceof HTMLLinkElement && linkTest.hasAttribute('onerror')) {
+        let isBundled = false;
+        if (
+            linkTest instanceof HTMLLinkElement 
+            && typeof(linkTest.onerror) === 'function') {
             const importedID = linkTest.dataset.imported;
             if (importedID !== undefined) {
+                
                 const imported = this.importTempl(importedID, shadowRootMode, target);
                 if (imported) {
                     return {
                         resolved: true,
                     };
                 }
+                isBundled = true;
                 if (document.readyState === 'loading') {
                     document.addEventListener('readystatechange', e => {
                         const imported = this.importTempl(importedID, shadowRootMode, target);
@@ -81,9 +86,10 @@ class BeWritten extends BE {
         }
         const { resolve } = await import('trans-render/lib/resolve.js');
         let finalURL = resolve(from);
-        import('be-a-beacon/behivior.js');
-        if (beBased !== undefined) {
-            const { emc } = await import('be-based/behivior.js');
+        import('be-a-beacon/emc.js');
+        
+        if (beBased !== undefined && !isBundled) {
+            const { emc } = await import('be-based/emc.js');
             const base = target.beEnhanced.whenResolved(emc);
             //const {attach} = await import('be-decorated/upgrade.js');
             const beBasedEndUserProps = (typeof beBased === 'boolean' ? {} : beBased);
