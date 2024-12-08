@@ -28,10 +28,10 @@
   },
   "dependencies": {
     "be-a-beacon": "0.0.70",
-    "be-based": "0.0.71",
+    "be-based": "0.0.72",
     "be-enhanced": "0.0.156",
     "be-hive": "0.0.236",
-    "stream-orator": "0.0.24",
+    "stream-orator": "0.0.25",
     "trans-render": "0.0.864"
   },
   "devDependencies": {
