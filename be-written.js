@@ -1,8 +1,8 @@
 // @ts-check
 import { config as beCnfg } from 'be-enhanced/config.js';
 import { BE } from 'be-enhanced/BE.js';
-/** @import {BEConfig, IEnhancement,  BEAllProps} from './node_modules/be-enhanced/types.d.ts' */
-/** @import {Actions, PAP, AllProps, AP} from './types.d.ts' */;
+/** @import {BEConfig, IEnhancement,  BEAllProps} from './ts-refs/be-enhanced/types.d.ts' */
+/** @import {Actions, PAP, AllProps, AP} from './ts-refs/be-written/types.d.ts' */;
 
 /**
  * @implements {Actions}
@@ -15,7 +15,8 @@ class BeWritten extends BE {
         propDefaults: {
             to: '.',
             beBased: true,
-            beOosoom: '!defer'
+            beOosoom: '!defer',
+            encoding: 'UTF-8'
         },
         propInfo: {
             ...beCnfg.propInfo,
@@ -37,7 +38,20 @@ class BeWritten extends BE {
      * @returns 
      */
     async write(self) {
-        const { enhancedElement, shadowRootMode, from, to, reqInit, wrapper, beBased, inProgressCss, inserts, between, once } = self;
+        const { 
+            enhancedElement,
+             shadowRootMode, 
+             from, 
+             to, 
+             reqInit, 
+             wrapper, 
+             beBased, 
+             inProgressCss, 
+             inserts, 
+             between, 
+             once,
+             encoding
+        } = self;
         if (once) {
             if (alreadyRequested.has(from)) {
                 return {
@@ -117,6 +131,7 @@ class BeWritten extends BE {
             rootTag: wrapper,
             between,
             inserts,
+            encoding
         });
         if (!this.getSet(self, so, target)) {
             return {
