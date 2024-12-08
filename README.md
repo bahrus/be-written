@@ -39,7 +39,7 @@ beBased indicates to enable rewriting url's coming from third parties.  Having i
 
 ## What about security?
 
-Security is a particularly thorny issue for this component, and is one of the many slam dunk reasons this functionality really should be built into the browser, with proper security mechanisms in place.  In particular, the ability to filter out script tags, or iframes, or other dangerous HTML is nearly impossible with the currently available, cross-browser api's, afaik.  So if the stream contains script tags or other such syntax, it will be written with no interference. See [https://www.keithcirkel.co.uk/i-html/#security](i-html's) discussion about this for a well-informed view on this subject.
+Security is a particularly thorny issue for this component, and is one of the many slam dunk reasons this functionality really should be built into the browser, with proper security mechanisms in place.  In particular, the ability to filter out script tags, or iframes, or other dangerous HTML is nearly impossible with the currently available, cross-browser api's, afaik.  So if the stream contains script tags or other such syntax, it will be written with no interference. See [i-html's](https://www.keithcirkel.co.uk/i-html/#security) discussion about this for a well-informed view on this subject.
 
 In the absence of any signs of mercy from the w3c, we apply security thusly:
 
