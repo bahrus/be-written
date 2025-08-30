@@ -1,0 +1,5 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e2]: ��<�div id=first>blah 1<�/div><�div id=second>blah 2<�/div><�div id=third>blah 3<�/div>
+```
