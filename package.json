@@ -16,7 +16,7 @@
     ".": "./be-written.js",
     "./be-written.js": "./be-written.js",
     "./emc.js": "./emc.js",
-    "./📜.js"
+    "./📜.js": "./📜.js"
   },
   "files": [
     "*.*"
