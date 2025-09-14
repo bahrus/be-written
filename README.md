@@ -137,7 +137,6 @@ if you desire your code to work with minimal CSP in place.
 
 Only loads when a navigation event has destination.url that matches the specified url mapping.
 
-Copies query string parameters to data-* attributes unless mapping is specified as shown below.
 
 If previously loaded, hides when new navigation event doesn't match (by default).  Unless "minMem" is set as shown below.
 
@@ -151,6 +150,8 @@ If previously loaded, hides when new navigation event doesn't match (by default)
     "minMem": false"
 }'></div>
 ```
+
+The mapping copies the parsed values to the specified attribute(s).
 
 https://developer.mozilla.org/en-US/docs/Web/API/URL_Pattern_API
 
