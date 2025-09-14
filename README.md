@@ -131,7 +131,20 @@ if you desire your code to work with minimal CSP in place.
 
 ## Support for routing [TODO]
 
+```html
+<div 📜="html-spec/" 📜-on-navigate></div>
+```
 
+Only loads when a navigation event has destination.url that matches the specified url mapping.
+
+Removes query string parameters, transfers them to data-* attributes.
+
+```html
+<div 📜-on-navigate='{
+    "whereSrcElementMatches": "#myId",
+    
+}'></div>
+```
 
 ## Support for bundling
 
