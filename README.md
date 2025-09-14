@@ -137,14 +137,21 @@ if you desire your code to work with minimal CSP in place.
 
 Only loads when a navigation event has destination.url that matches the specified url mapping.
 
-Removes query string parameters, transfers them to data-* attributes.
+Copies query string parameters to data-* attributes unless mapping is specified as shown below.
 
 ```html
 <div 📜-on-navigate='{
     "whereSrcElementMatches": "#myId",
-    
+    "whereUrlPatternMatches": "/books/:id",
+    "map":{
+        "id": "data-book-id"
+    }
 }'></div>
 ```
+
+https://developer.mozilla.org/en-US/docs/Web/API/URL_Pattern_API
+
+Since the path isn't specified 
 
 ## Support for bundling
 
