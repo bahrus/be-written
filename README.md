@@ -129,7 +129,7 @@ This enhancement doesn't actually check for the attribute to be present.  It che
 
 if you desire your code to work with minimal CSP in place.
 
-## Support for routing [TODO]
+## Support for routing -- Basic, with redundant url's [TODO]
 
 ```html
 <div 📜="html-spec/" 📜-on-navigate></div>
@@ -137,6 +137,7 @@ if you desire your code to work with minimal CSP in place.
 
 Only loads when a navigation event has destination.url that matches the specified url mapping.
 
+## Support for routing -- Advanced
 
 If previously loaded, hides when new navigation event doesn't match (by default).  Unless "minMem" is set as shown below.
 
@@ -150,6 +151,8 @@ If previously loaded, hides when new navigation event doesn't match (by default)
     "minMem": false"
 }'></div>
 ```
+
+At least one of the "where*" options is required if no url pattern as described above is provided.
 
 The mapping copies the parsed values to the specified attribute(s).
 
