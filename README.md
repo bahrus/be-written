@@ -148,8 +148,7 @@ If previously loaded, hides when new navigation event doesn't match (by default)
     "map":{
         "id": "data-book-id"
     },
-    "minMem": false
-    "
+    "minMem": false"
 }'></div>
 ```
 
