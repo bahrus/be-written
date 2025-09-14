@@ -139,13 +139,17 @@ Only loads when a navigation event has destination.url that matches the specifie
 
 Copies query string parameters to data-* attributes unless mapping is specified as shown below.
 
+If previously loaded, hides when new navigation event doesn't match (by default).  Unless "minMem" is set as shown below.
+
 ```html
 <div 📜-on-navigate='{
     "whereSrcElementMatches": "#myId",
     "whereUrlPatternMatches": "/books/:id",
     "map":{
         "id": "data-book-id"
-    }
+    },
+    "minMem": false
+    "
 }'></div>
 ```
 
