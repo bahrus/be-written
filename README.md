@@ -129,6 +129,10 @@ This enhancement doesn't actually check for the attribute to be present.  It che
 
 if you desire your code to work with minimal CSP in place.
 
+## Support for routing [TODO]
+
+
+
 ## Support for bundling
 
 It seems likely, even with all the advances that HTTP/3 provides, that in cases where most of the users are hit-and-run type visitors, some amount of bundling would be beneficial when it comes time to deploy to production.  Or maybe it is a bit difficult to say which is better - bundling or no bundling, so switching back and forth seamlessly is of upmost importance.
