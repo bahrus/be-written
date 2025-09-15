@@ -24,14 +24,17 @@ class BeWritten extends BE {
             from: {},
             onNavigate: {},
         },
-        compacts: {
-            when_onNavigate_changes_call_hydrate: 0,
-        },
+        // compacts: {
+        //     when_onNavigate_changes_call_hydrate: 0,
+        // },
         actions: {
             write: {
                 ifAllOf: ['from', 'to'],
                 ifNoneOf: ['defer']
             },
+            hydrate: {
+                ifAllOf: ['onNavigate']
+            }
         }
     };
     //provide hooks for extending enhancements like BeRewritten, BeImporting
@@ -163,7 +166,7 @@ class BeWritten extends BE {
      * @param {any} e 
      */
     handleEvent(e){
-        if (shouldNotIntercept(e)) return;
+        //if (shouldNotIntercept(e)) return;
         const self = /** @type {AP & BEAllProps} */(/** @type {any} */ (this));
         const {sourceElement} = e;
         const {onNavigate} = self;
