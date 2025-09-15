@@ -6,6 +6,7 @@ import { BE } from 'be-enhanced/BE.js';
 
 /**
  * @implements {Actions}
+ * @implements {EventListenerObject}
  */
 class BeWritten extends BE {
     /**
@@ -22,14 +23,17 @@ class BeWritten extends BE {
             ...beCnfg.propInfo,
             from: {},
         },
+        compacts: {
+            when_onNavigationProps_changes_call_hydrate: 0,
+        },
         actions: {
             write: {
                 ifAllOf: ['from', 'to'],
                 ifNoneOf: ['defer']
-            }
+            },
         }
     };
-    //provide hooks for extending decorators like BeRewritten, BeImporting
+    //provide hooks for extending enhancements like BeRewritten, BeImporting
     async getSet(self, so, target) { }
 
     /**
@@ -152,6 +156,43 @@ class BeWritten extends BE {
         return {
             resolved: true,
         };
+    }
+    /**
+     * 
+     * @param {any} e 
+     */
+    handleEvent(e){
+        if (shouldNotIntercept(navigateEvent)) return;
+        const self = /** @type {AP & BEAllProps} */(/** @type {any} */ (this));
+        const {sourceElement} = e;
+        const {onNavigationProps} = self;
+        const {whereSrcElementMatches, whereDestMatchesURLPattern} = onNavigationProps;
+        if(whereSrcElementMatches !== undefined){
+            if(!sourceElement.matches(whereSrcElementMatches)) return;
+        }
+        if(whereDestMatchesURLPattern !== undefined){
+            const pattern = new URLPattern(whereDestMatchesURLPattern);
+            if(!pattern.test(e.destination.url)) return;
+        }
+        e.preventDefault();
+        if(sourceElement instanceof HTMLAnchorElement){
+            self.from = sourceElement.href;
+        }else{
+            throw 'NI';
+        }
+    }
+
+    /**
+     * 
+     * @param {AP & BEAllProps} self 
+     * @returns 
+     */
+    hydrate(self){
+        
+        const nav = /** @type {any} */(window).navigation;
+        nav.addEventListener('navigate', this);
+        return /** @type {PAP} */ ({
+        });
     }
     importTempl(importedID, shadowRoot, target) {
         const templ = globalThis[importedID];

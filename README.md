@@ -129,13 +129,6 @@ This enhancement doesn't actually check for the attribute to be present.  It che
 
 if you desire your code to work with minimal CSP in place.
 
-## Support for routing -- Basic, with redundant url's [TODO]
-
-```html
-<div 📜="html-spec/" 📜-on-navigate></div>
-```
-
-Only loads when a navigation event has destination.url that matches the specified url mapping.
 
 ## Support for routing -- Advanced
 
