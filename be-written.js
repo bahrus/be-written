@@ -166,7 +166,7 @@ class BeWritten extends BE {
      * @param {any} e 
      */
     handleEvent(e){
-        //if (shouldNotIntercept(e)) return;
+        if (shouldNotIntercept(e)) return;
         const self = /** @type {AP & BEAllProps} */(/** @type {any} */ (this));
         const {sourceElement} = e;
         const {onNavigate} = self;
@@ -213,3 +213,23 @@ await BeWritten.bootUp();
 const lowerCaseRe = /^[a-zA-Z]/;
 const alreadyRequested = new Set();
 export { BeWritten };
+
+/**
+ * 
+ * @param {any} navigationEvent 
+ * @returns 
+ */
+function shouldNotIntercept(navigationEvent) {
+  return (
+    !navigationEvent.canIntercept ||
+    // If this is just a hashChange,
+    // just let the browser handle scrolling to the content.
+    navigationEvent.hashChange ||
+    // If this is a download,
+    // let the browser perform the download.
+    navigationEvent.downloadRequest ||
+    // If this is a form submission,
+    // let that go to the server.
+    navigationEvent.formData
+  );
+}
