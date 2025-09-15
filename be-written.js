@@ -24,17 +24,17 @@ class BeWritten extends BE {
             from: {},
             onNavigate: {},
         },
-        // compacts: {
-        //     when_onNavigate_changes_call_hydrate: 0,
-        // },
+        compacts: {
+            when_onNavigate_changes_call_hydrate: 0,
+        },
         actions: {
             write: {
                 ifAllOf: ['from', 'to'],
                 ifNoneOf: ['defer']
             },
-            hydrate: {
-                ifAllOf: ['onNavigate']
-            }
+            // hydrate: {
+            //     ifAllOf: ['onNavigate']
+            // }
         }
     };
     //provide hooks for extending enhancements like BeRewritten, BeImporting
