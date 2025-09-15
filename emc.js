@@ -7,13 +7,14 @@ import { BeHive, seed, MountObserver } from 'be-hive/be-hive.js';
  */
 export const emc = {
     base: 'be-written',
-    branches: ['', 'encoding', 'on-navigation'],
+    branches: ['', 'encoding', 'on-navigate'],
     map: {
         '0.0': 'from',
         '1.0': 'encoding', 
         '2.0': {
-            objValMapsTo: 'onNavigationProps',
-            instanceOf: 'Object'
+            //objValMapsTo: 'onNavigate',
+            instanceOf: 'Object',
+            mapsTo: 'onNavigate',
         }
     },
     enhPropKey: 'beWritten',

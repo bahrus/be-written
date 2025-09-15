@@ -22,9 +22,10 @@ class BeWritten extends BE {
         propInfo: {
             ...beCnfg.propInfo,
             from: {},
+            onNavigate: {},
         },
         compacts: {
-            when_onNavigationProps_changes_call_hydrate: 0,
+            when_onNavigate_changes_call_hydrate: 0,
         },
         actions: {
             write: {
@@ -162,11 +163,11 @@ class BeWritten extends BE {
      * @param {any} e 
      */
     handleEvent(e){
-        if (shouldNotIntercept(navigateEvent)) return;
+        if (shouldNotIntercept(e)) return;
         const self = /** @type {AP & BEAllProps} */(/** @type {any} */ (this));
         const {sourceElement} = e;
-        const {onNavigationProps} = self;
-        const {whereSrcElementMatches, whereDestMatchesURLPattern} = onNavigationProps;
+        const {onNavigate} = self;
+        const {whereSrcElementMatches, whereDestMatchesURLPattern} = onNavigate;
         if(whereSrcElementMatches !== undefined){
             if(!sourceElement.matches(whereSrcElementMatches)) return;
         }
@@ -176,7 +177,7 @@ class BeWritten extends BE {
         }
         e.preventDefault();
         if(sourceElement instanceof HTMLAnchorElement){
-            self.from = sourceElement.href;
+            self.from = sourceElement.getAttribute('href');
         }else{
             throw 'NI';
         }
