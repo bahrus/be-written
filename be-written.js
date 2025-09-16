@@ -203,8 +203,21 @@ class BeWritten extends BE {
         
         const nav = /** @type {any} */(window).navigation;
         nav.addEventListener('navigate', this);
-        const {} = self;
+        let {onNavigate, enhancedElement, from} = self;
+        const {whereSrcElementMatches} = onNavigate;
+        
+        if(whereSrcElementMatches !== undefined){
+            const matches = (/** @type {DocumentFragment} */ (enhancedElement.getRootNode())).querySelectorAll(whereSrcElementMatches);
+            for(const match of matches){
+                if(match instanceof HTMLAnchorElement){
+                    if(match.href === location.href){
+                        from = match.getAttribute('href');
+                    }
+                }
+            }
+        }
         return /** @type {PAP} */ ({
+            from
         });
     }
     importTempl(importedID, shadowRoot, target) {
