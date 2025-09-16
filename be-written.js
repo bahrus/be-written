@@ -210,8 +210,11 @@ class BeWritten extends BE {
             const matches = (/** @type {DocumentFragment} */ (enhancedElement.getRootNode())).querySelectorAll(whereSrcElementMatches);
             for(const match of matches){
                 if(match instanceof HTMLAnchorElement){
-                    if(match.href === location.href){
-                        from = match.getAttribute('href');
+                    const attr = match.getAttribute('href');
+                    if(attr === null) continue;
+                    if(location.href.endsWith(attr)){
+                        from = attr;
+                        break;
                     }
                 }
             }
