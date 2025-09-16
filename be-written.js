@@ -161,14 +161,17 @@ class BeWritten extends BE {
             resolved: true,
         };
     }
+
+
     /**
      * 
      * @param {any} e 
      */
     handleEvent(e){
+        const {sourceElement} = e;
         if (shouldNotIntercept(e)) return;
         const self = /** @type {AP & BEAllProps} */(/** @type {any} */ (this));
-        const {sourceElement} = e;
+        
         const {onNavigate} = self;
         const {whereSrcElementMatches, whereDestMatchesURLPattern} = onNavigate;
         if(whereSrcElementMatches !== undefined){
@@ -178,9 +181,14 @@ class BeWritten extends BE {
             const pattern = new URLPattern(whereDestMatchesURLPattern);
             if(!pattern.test(e.destination.url)) return;
         }
-        e.preventDefault();
+        
+        //e.preventDefault();
         if(sourceElement instanceof HTMLAnchorElement){
-            self.from = sourceElement.getAttribute('href');
+            const href = sourceElement.getAttribute('href');
+            self.from = href;
+            e.intercept({
+                async handler() {}
+            });
         }else{
             throw 'NI';
         }
@@ -195,6 +203,7 @@ class BeWritten extends BE {
         
         const nav = /** @type {any} */(window).navigation;
         nav.addEventListener('navigate', this);
+        const {} = self;
         return /** @type {PAP} */ ({
         });
     }
