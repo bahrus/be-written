@@ -174,7 +174,7 @@ class BeWritten extends BE {
         
         const {onNavigate} = self;
         const {whereSrcElementMatches, whereDestMatchesURLPattern} = onNavigate;
-        if(whereSrcElementMatches !== undefined){
+        if(whereSrcElementMatches !== undefined && sourceElement){
             if(!sourceElement.matches(whereSrcElementMatches)) return;
         }
         if(whereDestMatchesURLPattern !== undefined){
