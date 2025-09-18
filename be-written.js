@@ -190,7 +190,7 @@ class BeWritten extends BE {
                 async handler() {}
             });
         }else{
-            throw 'NI';
+            //throw 'NI';
         }
     }
 
