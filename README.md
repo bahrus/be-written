@@ -335,7 +335,6 @@ Any web server that can serve static html files with server-side includes will d
 1.  Install git.
 2.  Fork/clone this repo.
 3.  Install node.
-4.  Install Python 3 or later.
 5.  Open command window to folder where you cloned this repo.
 6.  > npm install
 7.  > npm run serve

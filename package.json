@@ -24,7 +24,7 @@
   "types": "types.d.ts",
   "scripts": {
     "test": "playwright test",
-    "serve": "python3 ./node_modules/ssi-server/ssi_server.py",
+    "serve": "node ./node_modules/spa-ssi/serve.js",
     "safari": "npx playwright wk http://localhost:8000",
     "update": "ncu -u && npm install"
   },
@@ -37,7 +37,7 @@
     "trans-render": "0.0.956"
   },
   "devDependencies": {
-    "ssi-server": "0.0.1",
+    "spa-ssi": "0.0.2",
     "@playwright/test": "1.55.0"
   },
   "repository": {
