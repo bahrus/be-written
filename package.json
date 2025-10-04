@@ -29,7 +29,7 @@
     "update": "ncu -u && npm install"
   },
   "dependencies": {
-    "be-a-beacon": "0.0.75",
+    "be-a-beacon": "0.0.76",
     "be-based": "0.0.74",
     "be-enhanced": "0.0.189",
     "be-hive": "0.0.267",
